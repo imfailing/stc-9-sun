@@ -45,7 +45,7 @@ public class UserDAOJdbcImpl implements UserDAO {
                 statement.execute();
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
             return false;
         }
         return true;
@@ -64,7 +64,7 @@ public class UserDAOJdbcImpl implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return user;
     }
@@ -81,7 +81,7 @@ public class UserDAOJdbcImpl implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return users;
     }
@@ -96,7 +96,7 @@ public class UserDAOJdbcImpl implements UserDAO {
                 count = statement.executeUpdate();
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return count > 0;
     }
@@ -110,7 +110,7 @@ public class UserDAOJdbcImpl implements UserDAO {
                 count = statement.executeUpdate();
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return count > 0;
     }
@@ -127,7 +127,7 @@ public class UserDAOJdbcImpl implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return users;
     }

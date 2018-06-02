@@ -27,7 +27,7 @@ public class GroupDAOJdbcImpl implements GroupDAO {
 
     private final ConnectionManager connectionManager;
     private final JDBCMapper<Group> groupMapper;
-    private static final Logger LOGGER = Logger.getLogger(UserDAOJdbcImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(GroupDAOJdbcImpl.class);
 
     @Autowired
     public GroupDAOJdbcImpl(ConnectionManager connectionManager, JDBCMapper<Group> groupMapper) {
@@ -46,7 +46,7 @@ public class GroupDAOJdbcImpl implements GroupDAO {
                 statement.execute();
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
             return false;
         }
         return true;
@@ -62,7 +62,7 @@ public class GroupDAOJdbcImpl implements GroupDAO {
                 count = statement.executeUpdate();
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return count > 0;
     }
@@ -76,7 +76,7 @@ public class GroupDAOJdbcImpl implements GroupDAO {
                 count = statement.executeUpdate();
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return count > 0;
     }
@@ -94,7 +94,7 @@ public class GroupDAOJdbcImpl implements GroupDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return group;
     }
@@ -111,7 +111,7 @@ public class GroupDAOJdbcImpl implements GroupDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return groups;
     }
@@ -125,7 +125,7 @@ public class GroupDAOJdbcImpl implements GroupDAO {
                 statement.execute();
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
             return false;
         }
         return true;
@@ -141,7 +141,7 @@ public class GroupDAOJdbcImpl implements GroupDAO {
                 count = statement.executeUpdate();
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return count > 0;
     }
