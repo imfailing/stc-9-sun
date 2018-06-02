@@ -23,7 +23,7 @@ public class GroupDAOJdbcImpl implements GroupDAO {
     static final String SELECT_ALL_GROUPS_SQL = "SELECT id, title, description, start_date, finished_date, is_active FROM groups ORDER BY id";
     static final String GET_GROUP_SQL = "SELECT id, title, description, start_date, finished_date, is_active FROM groups WHERE id = ?";
     static final String INSERT_NEW_MEMBER_SQL = "INSERT INTO members (group_id, user_id) VALUES (?, ?)";
-    static final String DELETE_NEW_MEMBER_SQL = "DELETE FROM members WHERE group_id = ? AND user_id=?";
+    static final String DELETE_MEMBER_SQL = "DELETE FROM members WHERE group_id = ? AND user_id=?";
 
     private final ConnectionManager connectionManager;
     private final JDBCMapper<Group> groupMapper;
@@ -135,7 +135,7 @@ public class GroupDAOJdbcImpl implements GroupDAO {
     public boolean deleteGroupMember(Integer groupId, Integer userId) {
         int count = 0;
         try (Connection connection = connectionManager.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement(DELETE_NEW_MEMBER_SQL)) {
+            try (PreparedStatement statement = connection.prepareStatement(DELETE_MEMBER_SQL)) {
                 statement.setInt(1, groupId);
                 statement.setInt(2, userId);
                 count = statement.executeUpdate();
