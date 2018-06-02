@@ -37,4 +37,9 @@ public class UserServiceImpl implements UserService {
     public boolean updateUser(UserDTO userDTO) {
         return userDAO.update(UserMapper.toEntity(userDTO));
     }
+
+    @Override
+    public Set<UserDTO> getUsersByGroup(Integer groupId) {
+        return userDAO.getByGroup(groupId).stream().map(UserMapper::toDto).collect(Collectors.toSet());
+    }
 }

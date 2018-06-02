@@ -12,4 +12,6 @@ public interface UserService {
     UserDTO getUserById(Integer id);
 
     boolean updateUser(UserDTO userDTO);
+
+    Set<UserDTO> getUsersByGroup(Integer groupId);
 }

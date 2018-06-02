@@ -40,4 +40,14 @@ public class GroupServiceImpl implements GroupService {
     public Set<GroupDTO> getAllGroups() {
         return groupDAO.getAll().stream().map(GroupMapper::toDto).collect(Collectors.toSet());
     }
+
+    @Override
+    public boolean addNewMemberToGroup(Integer groupId, Integer userId) {
+        return groupDAO.addNewMember(groupId, userId);
+    }
+
+    @Override
+    public boolean deleteMemberFromGroup(Integer groupId, Integer userId) {
+        return groupDAO.deleteGroupMember(groupId, userId);
+    }
 }

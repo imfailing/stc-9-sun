@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.innopolis.stc9.sun.academy.dto.GroupDTO;
 import ru.innopolis.stc9.sun.academy.service.GroupService;
+import ru.innopolis.stc9.sun.academy.service.UserService;
 
 import javax.validation.Valid;
 import java.util.Set;
@@ -17,12 +18,14 @@ public class GroupController {
 
     private static final String TITLE = "Управление группами";
     private final GroupService groupService;
+    private final UserService userService;
 
     private static final Logger LOGGER = Logger.getLogger(SignUpController.class);
 
     @Autowired
-    public GroupController(GroupService groupService) {
+    public GroupController(GroupService groupService, UserService userService) {
         this.groupService = groupService;
+        this.userService = userService;
     }
 
     @GetMapping("/groups")
@@ -45,11 +48,10 @@ public class GroupController {
 
     @GetMapping("/group/{id}")
     public String updateGroup(@PathVariable Integer id, ModelMap model) {
-        GroupDTO group = groupService.getGroupById(id);
-
-        model.addAttribute("group", group);
+        model.addAttribute("members", userService.getUsersByGroup(id));
+        model.addAttribute("group", groupService.getGroupById(id));
         model.addAttribute("title", TITLE);
-
+        model.addAttribute("users", userService.getUsers());
         return "group";
     }
 
@@ -78,5 +80,21 @@ public class GroupController {
     public String group(@PathVariable Integer id) {
         groupService.deleteGroupById(id);
         return "redirect:/groups";
+    }
+
+    @GetMapping("/group/{groupId}/members/delete/{userId}")
+    public String deleteMember(@PathVariable Integer groupId,
+                               @PathVariable Integer userId,
+                               ModelMap model){
+        groupService.deleteMemberFromGroup(groupId, userId);
+        return "redirect:/group/" + groupId;
+    }
+
+    @GetMapping("/group/{groupId}/members/add/{userId}")
+    public String addMember(@PathVariable Integer groupId,
+                               @PathVariable Integer userId,
+                               ModelMap model){
+        groupService.addNewMemberToGroup(groupId, userId);
+        return "redirect:/group/" + groupId;
     }
 }

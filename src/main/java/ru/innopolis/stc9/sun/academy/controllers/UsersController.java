@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.innopolis.stc9.sun.academy.dto.UserDTO;
 import ru.innopolis.stc9.sun.academy.service.UserService;
 import javax.validation.Valid;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/users")
@@ -31,7 +32,7 @@ public class UsersController {
     public String getUsers(ModelMap model){
         model.addAttribute(TITLE_ATTRIBUTE_NAME, TITLE);
         model.addAttribute(USERS_ATTRIBUTE_NAME, userService.getUsers());
-        model.addAttribute("user", new UserDTO());
+        model.addAttribute(USER_ATTRIBUTE_NAME, new UserDTO());
         return USERS_VIEW_NAME;
     }
 
@@ -61,12 +62,18 @@ public class UsersController {
                              @Valid @ModelAttribute(USER_ATTRIBUTE_NAME) final UserDTO user,
                              BindingResult bindingResult,
                              ModelMap model){
-        if (!bindingResult.hasErrors()) {
+        if (!bindingResult.hasErrors() && Objects.equals(id, user.getId())) {
             user.setId(id);
             userService.updateUser(user);
         } else {
             model.addAttribute(TITLE_ATTRIBUTE_NAME, user.getFullName());
         }
         return USER_VIEW_NAME;
+    }
+
+    @ModelAttribute(USER_ATTRIBUTE_NAME)
+    public UserDTO getUserById(Integer id){
+        if (id != null) return userService.getUserById(id);
+        else return new UserDTO();
     }
 }
