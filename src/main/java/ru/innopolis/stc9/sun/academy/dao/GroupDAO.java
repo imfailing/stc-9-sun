@@ -10,4 +10,6 @@ public interface GroupDAO {
     boolean deleteById(int id);
     Group getById(int id);
     Set<Group> getAll();
+    boolean addNewMember(Integer groupId, Integer userId);
+    boolean deleteGroupMember(Integer groupId, Integer userId);
 }

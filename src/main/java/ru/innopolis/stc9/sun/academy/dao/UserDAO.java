@@ -10,4 +10,5 @@ public interface UserDAO {
     Set<User> getAll();
     boolean update(User user);
     boolean deleteById(int id);
+    Set<User> getByGroup(Integer groupId);
 }
