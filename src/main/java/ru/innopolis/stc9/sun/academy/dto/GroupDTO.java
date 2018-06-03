@@ -97,4 +97,12 @@ public class GroupDTO {
 
         return Objects.hash(id, title, description, start_date, finished_date, is_active);
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "GroupDTO{id=%d, title='%s', description='%s', start_date='%s', finished_date='%s', is_active=%s}",
+                id, title, description, start_date, finished_date, is_active
+        );
+    }
 }
