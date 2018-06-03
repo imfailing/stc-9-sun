@@ -118,6 +118,7 @@ public class GroupDAOJdbcImpl implements GroupDAO {
 
     @Override
     public boolean addNewMember(Integer groupId, Integer userId) {
+        LOGGER.info(String.format("Try to add new group's member to DB. Params: [groupId: %d; userId: %d]", groupId, userId));
         try(Connection connection = connectionManager.getConnection()){
             try (PreparedStatement statement = connection.prepareStatement(INSERT_NEW_MEMBER_SQL)) {
                 statement.setInt(1, groupId);
@@ -125,14 +126,17 @@ public class GroupDAOJdbcImpl implements GroupDAO {
                 statement.execute();
             }
         } catch (SQLException e) {
+            LOGGER.warn("Add new member to group operation was failed.");
             LOGGER.error(e.getMessage(), e);
             return false;
         }
+        LOGGER.info("Add new member to group operation was succeeded.");
         return true;
     }
 
     @Override
     public boolean deleteGroupMember(Integer groupId, Integer userId) {
+        LOGGER.info(String.format("Try to delete group's member from DB. Params: [groupId: %d; userId: %d]", groupId, userId));
         int count = 0;
         try (Connection connection = connectionManager.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(DELETE_MEMBER_SQL)) {
@@ -141,8 +145,10 @@ public class GroupDAOJdbcImpl implements GroupDAO {
                 count = statement.executeUpdate();
             }
         } catch (SQLException e) {
+            LOGGER.warn("Delete member from group operation was failed.");
             LOGGER.error(e.getMessage(), e);
         }
+        LOGGER.info(String.format("Deleted %d members with id=%d from group with id=%d", count, userId, groupId));
         return count > 0;
     }
 }

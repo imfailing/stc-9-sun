@@ -30,9 +30,11 @@ public class UsersController {
 
     @GetMapping
     public String getUsers(ModelMap model){
+        LOGGER.info("Received GET request to show all users.");
         model.addAttribute(TITLE_ATTRIBUTE_NAME, TITLE);
         model.addAttribute(USERS_ATTRIBUTE_NAME, userService.getUsers());
         model.addAttribute(USER_ATTRIBUTE_NAME, new UserDTO());
+        LOGGER.info(String.format("Show %s view", USERS_VIEW_NAME));
         return USERS_VIEW_NAME;
     }
 
@@ -40,20 +42,26 @@ public class UsersController {
     public String addUser(@Valid @ModelAttribute(USER_ATTRIBUTE_NAME) final UserDTO user,
                            BindingResult bindingResult,
                            ModelMap model){
+        LOGGER.info(String.format("Received POST request to add new user. User's params: [%s]", user.toString()));
         if (!bindingResult.hasErrors()) {
+            LOGGER.info("Params is valid. Try to add user and redirect to /users");
             userService.addUser(user);
             return "redirect:/users";
         } else {
+            LOGGER.warn("Invalid user's params");
             model.addAttribute(TITLE_ATTRIBUTE_NAME, TITLE);
             model.addAttribute(USERS_ATTRIBUTE_NAME, userService.getUsers());
+            LOGGER.info(String.format("Show %s view", USERS_VIEW_NAME));
             return USERS_VIEW_NAME;
         }
     }
 
     @GetMapping("/{id}/")
     public String getUser(@PathVariable Integer id, ModelMap model){
+        LOGGER.info(String.format("Received GET request to show user with id=%d", id));
         model.addAttribute(TITLE_ATTRIBUTE_NAME, TITLE);
         model.addAttribute(USER_ATTRIBUTE_NAME, userService.getUserById(id));
+        LOGGER.info(String.format("Show %s view", USER_VIEW_NAME));
         return USER_VIEW_NAME;
     }
 
@@ -62,18 +70,29 @@ public class UsersController {
                              @Valid @ModelAttribute(USER_ATTRIBUTE_NAME) final UserDTO user,
                              BindingResult bindingResult,
                              ModelMap model){
+        LOGGER.info(String.format("Received POST request to update user with id=%d. User's params: [ %s ]", id, user.toString()));
         if (!bindingResult.hasErrors() && Objects.equals(id, user.getId())) {
+            LOGGER.info("Params is valid. Try to update user");
             user.setId(id);
             userService.updateUser(user);
         } else {
+            LOGGER.warn("Invalid user's params");
             model.addAttribute(TITLE_ATTRIBUTE_NAME, user.getFullName());
         }
+        LOGGER.info(String.format("Show %s view", USER_VIEW_NAME));
         return USER_VIEW_NAME;
     }
 
     @ModelAttribute(USER_ATTRIBUTE_NAME)
     public UserDTO getUserById(Integer id){
-        if (id != null) return userService.getUserById(id);
-        else return new UserDTO();
+        LOGGER.info("Prepare user model");
+        if (id != null) {
+            LOGGER.info(String.format("Request contain user ID = %d. Try to get user DTO.", id));
+            return userService.getUserById(id);
+        }
+        else {
+            LOGGER.info("Request doesn't contain the user ID. Use empty DTO.");
+            return new UserDTO();
+        }
     }
 }

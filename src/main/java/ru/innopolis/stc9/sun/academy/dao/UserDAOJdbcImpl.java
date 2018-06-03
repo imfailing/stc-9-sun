@@ -26,7 +26,7 @@ public class UserDAOJdbcImpl implements UserDAO {
     static final String SELECT_ALL_USERS_SQL = "SELECT * FROM \"user\" ORDER BY id";
     static final String UPDATE_USER_SQL = "UPDATE \"user\" SET firstname = ?, lastname = ?, patronymic = ?, email = ?, password = ?, is_active = ? WHERE id = ?";
     static final String DELETE_USER_SQL = "DELETE FROM \"user\" WHERE id = ?";
-    static final String SELECT_USERS_BY_GROUP_SQL = "SELECT * FROM \"user\" LEFT JOIN \"members\" ON \"user\".id=user_id WHERE group_id=1";
+    static final String SELECT_USERS_BY_GROUP_SQL = "SELECT * FROM \"user\" LEFT JOIN \"members\" ON \"user\".id=user_id WHERE group_id=?";
 
     @Autowired
     public UserDAOJdbcImpl(ConnectionManager connectionManager, JDBCMapper<User> userMapper) {
@@ -117,9 +117,11 @@ public class UserDAOJdbcImpl implements UserDAO {
 
     @Override
     public Set<User> getByGroup(Integer groupId) {
+        LOGGER.info(String.format("Try to get user list from DB by group with id=%d", groupId));
         Set<User> users = new HashSet<>();
-        try (Connection connection = connectionManager.getConnection();) {
+        try (Connection connection = connectionManager.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(SELECT_USERS_BY_GROUP_SQL)) {
+                statement.setInt(1, groupId);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
                         users.add(userMapper.toEntity(resultSet));
