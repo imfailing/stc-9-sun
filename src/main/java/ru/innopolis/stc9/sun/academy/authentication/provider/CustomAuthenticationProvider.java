@@ -28,11 +28,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
         UserDTO userDTO = userService.getUserByEmail(email);
 
         if (userDTO==null || !userDTO.getEmail().equalsIgnoreCase(email)) {
-            throw new BadCredentialsException("Пользователь не найден.");
+            throw new BadCredentialsException("Неверный логин или пароль.");
         }
 
         if (!password.equals(userDTO.getPassword())) {
-            throw new BadCredentialsException("Неверный пароль");
+            throw new BadCredentialsException("Неверный логин или пароль.");
         }
 
         Collection<? extends GrantedAuthority> roles = userDTO.getRoles();
