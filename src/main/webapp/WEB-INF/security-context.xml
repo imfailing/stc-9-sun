@@ -10,12 +10,11 @@
     <http pattern="/login" security="none"/>
 
     <http auto-config= "true" use-expressions= "true"  >
-        <intercept-url pattern="/signup*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
         <intercept-url pattern="/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
         <form-login login-page="/login" username-parameter="j_username"
                     password-parameter="j_password"
                     login-processing-url= "/j_spring_security_check"
-                    authentication-failure-url="/login.jsp?error=1"/>
+                    authentication-failure-url="/login?error=1"/>
         <logout logout-success-url="/logout" />
         <csrf disabled="true"/>
     </http>

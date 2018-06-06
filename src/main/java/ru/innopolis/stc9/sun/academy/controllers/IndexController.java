@@ -8,13 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class IndexController {
-    private static final Logger LOGGER = Logger.getLogger(SignUpController.class);
+    private static final Logger LOGGER = Logger.getLogger(IndexController.class);
 
     @RequestMapping("/")
-
-
-    @GetMapping
-    protected String index(ModelMap model) {
+    public String index(ModelMap model) {
         model.addAttribute("title", "Главная");
         return "index";
     }
