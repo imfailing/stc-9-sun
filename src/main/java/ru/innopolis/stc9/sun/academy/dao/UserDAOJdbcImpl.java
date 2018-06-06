@@ -5,13 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.innopolis.stc9.sun.academy.connection.ConnectionManager;
 import ru.innopolis.stc9.sun.academy.dao.mapper.UserJdbcMapper;
+import ru.innopolis.stc9.sun.academy.entity.Role;
 import ru.innopolis.stc9.sun.academy.entity.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -119,6 +122,11 @@ public class UserDAOJdbcImpl implements UserDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     user = UserJdbcMapper.toUser(resultSet);
+                    List<Role> roles = new ArrayList<>();
+                    Role role = new Role();
+                    role.setName("ROLE_ADMIN");
+                    roles.add(role);
+                    user.setRoles(roles);
                 }
             }
             connection.close();

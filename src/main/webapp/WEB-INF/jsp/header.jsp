@@ -20,8 +20,7 @@
                     <c:if test= "${not isUSer}">
                         <a class="navbar-brand" href="/">Academy</a>
                         <p class="navbar-text navbar-right">Вы не вошли <a href= "/login">Войти</a></p>
-                        <a class="btn btn-default navbar-btn btn-logout btn-head" href="#">My page</a>
-                        <a class="btn btn-default navbar-btn btn-my-page btn-head" href="#">Logout</a>
+
                     </c:if>
 
 
