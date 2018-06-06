@@ -107,4 +107,12 @@ public class UserDTO {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "UserDTO{id=%d, firstName='%s', lastName='%s', patronymic='%s', email='%s', password='*****', isActive=%s}",
+                id, firstName, lastName, patronymic, email, isActive
+        );
+    }
 }

@@ -77,4 +77,30 @@ public class Group {
     public void setIs_active(boolean is_active) {
         this.is_active = is_active;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Group group = (Group) o;
+
+        if (id != group.id) return false;
+        if (is_active != group.is_active) return false;
+        if (title != null ? !title.equals(group.title) : group.title != null) return false;
+        if (description != null ? !description.equals(group.description) : group.description != null) return false;
+        if (start_date != null ? !start_date.equals(group.start_date) : group.start_date != null) return false;
+        return finished_date != null ? finished_date.equals(group.finished_date) : group.finished_date == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (start_date != null ? start_date.hashCode() : 0);
+        result = 31 * result + (finished_date != null ? finished_date.hashCode() : 0);
+        result = 31 * result + (is_active ? 1 : 0);
+        return result;
+    }
 }

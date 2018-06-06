@@ -10,27 +10,6 @@
         <form:form method="post" action="" modelAttribute="user" cssClass="form-inline">
             <form:input path="id" hidden="true"/>
             <tr>
-                <td>Id</td>
-                <td>${user.id}</td>
-                <td>
-                    <a role="button" data-toggle="collapse" href="#changePassword" aria-expanded="false" aria-controls="changePassword">
-                        Изменить пароль
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3" class="custom-td">
-                    <div class="collapse" id="changePassword">
-                        <div class="well">
-                            <div class="form-group">
-                                <form:password path="password" placeholder="Введите пароль" cssClass="form-control"/>
-                                <form:errors path="password" cssClass="alert alert-danger custom-alert" role="alert"/>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
                 <td>Фамилия</td>
                 <td>${user.lastName}</td>
                 <td>
