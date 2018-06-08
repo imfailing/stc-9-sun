@@ -32,12 +32,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
         LOGGER.info(String.format("Find user %s.", userDTO.getFirstName()));
 
         if (userDTO==null || !userDTO.getEmail().equalsIgnoreCase(email)) {
-            LOGGER.info("Попытка входа с неверным логином");
+            LOGGER.info("Trying to enter with wrong login");
             throw new BadCredentialsException("Неверный логин или пароль.");
         }
 
         if (!password.equals(userDTO.getPassword())) {
-            LOGGER.info("Попытка входа с неверным паролем");
+            LOGGER.info("Trying to enter with wrong password");
             throw new BadCredentialsException("Неверный логин или пароль.");
         }
 
