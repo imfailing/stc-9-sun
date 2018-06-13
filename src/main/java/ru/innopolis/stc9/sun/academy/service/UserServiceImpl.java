@@ -39,5 +39,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Set<UserDTO> getUsersByGroup(Integer groupId) {
+        return userDAO.getByGroup(groupId).stream().map(UserMapper::toDto).collect(Collectors.toSet());
+    }
+
+    @Override
     public UserDTO getUserByEmail(String email) {return UserMapper.toDto(userDAO.getByEmail(email));}
 }

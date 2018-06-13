@@ -13,5 +13,7 @@ public interface UserService {
 
     boolean updateUser(UserDTO userDTO);
 
+    Set<UserDTO> getUsersByGroup(Integer groupId);
+
     UserDTO getUserByEmail(String email);
 }

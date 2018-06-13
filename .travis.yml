@@ -2,6 +2,8 @@ language: java
 sudo: false
 install: true
 
+dist: trusty
+
 jdk:
   - oraclejdk8
 
@@ -25,6 +27,23 @@ cache:
 install:
   - gradle wrapper --gradle-version 4.4
 
+addons:
+  sonarcloud:
+    organization: $SONARCLOUD_ORGANIZATION
+    token:
+      secure: $SONARCLOUD_TOKEN
+
 script:
   - ./gradlew assemble
   - ./gradlew check
+  - sonar-scanner
+  - rm -rf .scannerwork
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: $HEROKU_API_KEY
+  app:
+    develop: $HEROKU_DEVELOP_APP
+  on:
+    all_branches: true

@@ -9,6 +9,8 @@
        http://www.springframework.org/schema/context/spring-context.xsd">
     <context:property-placeholder location="classpath:util.properties"/>
     <context:component-scan base-package="ru.innopolis.stc9.sun.academy"/>
+    
+    <mvc:resources mapping="/static/**" location="/static/"/>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
