@@ -11,18 +11,17 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <c:if test= "${isUSer}">
-                    <a class="navbar-brand" href="/">Academy</a>
-                    <p class="navbar-text navbar-right">Вошли как <security:authentication property= "principal.username"/> под ролью <security:authentication property= "principal.authorities"/></p>
-                    <a class="btn btn-default navbar-btn btn-logout btn-head" href="#">My page</a>
-                    <a class="btn btn-default navbar-btn btn-my-page btn-head" href="#">Logout</a>
-                    </c:if>
+
                     <c:if test= "${not isUSer}">
                         <a class="navbar-brand" href="/">Academy</a>
-                        <p class="navbar-text navbar-right">Вы не вошли <a href= "/login">Войти</a></p>
-
+                        <p class="navbar-text navbar-right">Вы не вошли</p>
                     </c:if>
-
+                    <c:if test= "${isUSer}">
+                    <a class="navbar-brand" href="/">Academy</a>
+                    <p class="navbar-text navbar-right">Вошли как <security:authentication property= "principal.firstName"/> <security:authentication property= "principal.lastName"/> под ролью <security:authentication property= "principal.roles"/></p>
+                    <a class="btn btn-default navbar-btn btn-logout btn-head" href="/logout">Выйти</a>
+                    <a class="btn btn-default navbar-btn btn-my-page btn-head" href="/">ЛК</a>
+                    </c:if>
 
                 </div>
             </div>

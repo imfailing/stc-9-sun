@@ -43,7 +43,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
 
         Collection<? extends GrantedAuthority> roles = userDTO.getRoles();
 
-        return new UsernamePasswordAuthenticationToken(email, password, roles);
+        return new UsernamePasswordAuthenticationToken(userDTO, password, roles);
     }
 
     public boolean supports(Class<?> arg0) {
