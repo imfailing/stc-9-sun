@@ -18,7 +18,11 @@
                     </c:if>
                     <c:if test= "${isUSer}">
                     <a class="navbar-brand" href="/">Academy</a>
-                    <p class="navbar-text navbar-right">Вошли как <security:authentication property= "principal.firstName"/> <security:authentication property= "principal.lastName"/> под ролью <security:authentication property= "principal.roles"/></p>
+                    <p class="navbar-text navbar-right">Вошли как <security:authentication property= "principal.firstName"/> <security:authentication property= "principal.lastName"/> под ролью <security:authentication property= "principal.roles"  var="roles" />
+                        <c:forEach items="${roles}" var="role" varStatus="vs">
+                            ${role.name}
+                        </c:forEach>
+                    </p>
                     <a class="btn btn-default navbar-btn btn-logout btn-head" href="/logout">Выйти</a>
                     <a class="btn btn-default navbar-btn btn-my-page btn-head" href="/">ЛК</a>
                     </c:if>

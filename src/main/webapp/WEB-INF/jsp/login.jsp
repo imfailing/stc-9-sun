@@ -13,7 +13,7 @@
     <c:if test= "${isUSer}">
         Вы вошли как: <security:authentication property= "principal.firstNmae"/> с ролью: <security:authentication property= "principal.roles"/>
     </c:if>
-    <form:form name= "form" action= "/j_spring_security_check" method= "post" class= "">
+    <form:form name= "form" action= "/j_spring_security_check" method= "post">
         <c:if test= "${not isUSer}">
         <label for= "inputEmail" class= ""></label>
         <input id= "inputEmail" class= "" name= "j_username" required autofocus/>

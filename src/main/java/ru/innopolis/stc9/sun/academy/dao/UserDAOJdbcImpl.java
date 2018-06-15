@@ -147,11 +147,6 @@ public class UserDAOJdbcImpl implements UserDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     user = userMapper.toEntity(resultSet);
-                    List<Role> roles = new ArrayList<>();
-                    Role role = new Role();
-                    role.setName("ROLE_ADMIN");
-                    roles.add(role);
-                    user.setRoles(roles);
                 }
             }
             connection.close();

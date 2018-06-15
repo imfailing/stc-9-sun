@@ -29,6 +29,17 @@ public class User {
     }
 
     public User(Integer id, String firstName, String lastName, String patronymic, String email, String password,
+                Boolean isActive, List<Role> roles) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.patronymic = patronymic;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public User(Integer id, String firstName, String lastName, String patronymic, String email, String password,
                 Boolean isActive) {
         this.id = id;
         this.firstName = firstName;
