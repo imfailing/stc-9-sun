@@ -2,7 +2,6 @@ package ru.innopolis.stc9.sun.academy.dao.mapper;
 
 import org.springframework.stereotype.Component;
 import ru.innopolis.stc9.sun.academy.entity.Lesson;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
