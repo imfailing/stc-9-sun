@@ -10,8 +10,8 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/">Academy</a>
                     <p class="navbar-text navbar-right">Signed in as ${name} ${surname} (${email})</p>
-                    <a class="btn btn-default navbar-btn btn-logout btn-head" href="#">My page</a>
-                    <a class="btn btn-default navbar-btn btn-my-page btn-head" href="#">Logout</a>
+                    <a class="btn btn-default navbar-btn btn-logout btn-head" href="/profile">Личный кабинет</a>
+                    <a class="btn btn-default navbar-btn btn-my-page btn-head" href="#">Выйти</a>
                 </div>
             </div>
         </nav>
