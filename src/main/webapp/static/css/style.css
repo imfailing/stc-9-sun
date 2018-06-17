@@ -68,6 +68,16 @@
     border-radius: 0;
 }
 
+.pagination{
+    display: inline;
+    padding: 10px;
+}
+
+.cst-inline-search{
+    display: inline;
+    width: 500px;
+}
+
 /* Left Sidebar
 -----------------------------------------------------------------------------*/
 .left-sidebar {
