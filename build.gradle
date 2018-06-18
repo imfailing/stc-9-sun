@@ -24,7 +24,6 @@ task copyToLib(type: Copy) {
 stage.dependsOn(copyToLib)
 
 dependencies {
-    compile group: 'javax.servlet', name: 'jstl', version: '1.2'
     testCompile group: 'junit', name: 'junit', version: '4.11'
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
@@ -34,5 +33,9 @@ dependencies {
     compile group: 'org.hibernate.validator', name: 'hibernate-validator', version: '6.0.9.Final'
     compile group: 'org.apache.taglibs', name: 'taglibs-standard-spec', version: '1.2.5'
     compile group: 'org.apache.taglibs', name: 'taglibs-standard-impl', version: '1.2.5'
+    compile group: 'org.springframework.security', name: 'spring-security-web', version: '4.2.6.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-taglibs', version: '4.2.6.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-config', version: '4.2.6.RELEASE'
+    compile group: 'jstl', name: 'jstl', version: '1.2'
     compile group: 'com.github.jsimone', name: 'webapp-runner', version: '8.5.11.3'
 }

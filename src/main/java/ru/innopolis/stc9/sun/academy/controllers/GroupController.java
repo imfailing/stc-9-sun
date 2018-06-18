@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.innopolis.stc9.sun.academy.dto.GroupDTO;
 import ru.innopolis.stc9.sun.academy.service.GroupService;
+import ru.innopolis.stc9.sun.academy.service.LessonService;
 import ru.innopolis.stc9.sun.academy.service.UserService;
 import javax.validation.Valid;
 import java.util.Set;
@@ -26,13 +27,15 @@ public class GroupController {
 
     private final GroupService groupService;
     private final UserService userService;
+    private final LessonService lessonService;
 
     private static final Logger LOGGER = Logger.getLogger(GroupController.class);
 
     @Autowired
-    public GroupController(GroupService groupService, UserService userService) {
+    public GroupController(GroupService groupService, UserService userService, LessonService lessonService) {
         this.groupService = groupService;
         this.userService = userService;
+        this.lessonService = lessonService;
     }
 
     @GetMapping("/groups")
@@ -59,9 +62,9 @@ public class GroupController {
     public String updateGroup(@PathVariable Integer id, ModelMap model) {
         LOGGER.info(String.format("Received GET request to show the group with id = %d.", id));
         model.addAttribute("members", userService.getUsersByGroup(id));
+        model.addAttribute("lessons", lessonService.getLessonsByGroup(id));
         model.addAttribute(GROUP_ATTRIBUTE_NAME, groupService.getGroupById(id));
         model.addAttribute(TITLE_ATTRIBUTE_NAME, TITLE);
-        model.addAttribute("users", userService.getUsers());
         LOGGER.info(String.format("Show %s view.", GROUP_VIEW_NAME));
         return GROUP_VIEW_NAME;
     }
@@ -100,25 +103,5 @@ public class GroupController {
         groupService.deleteGroupById(id);
         LOGGER.info(String.format("Redirect to [%s]", TO_GROUPS_REDIRECT));
         return TO_GROUPS_REDIRECT;
-    }
-
-    @GetMapping("/group/{groupId}/members/delete/{userId}")
-    public String deleteMember(@PathVariable Integer groupId,
-                               @PathVariable Integer userId,
-                               ModelMap model){
-        LOGGER.info(String.format("Received GET request to delete user from group. Params: [groupId: %d; userId: %d]", groupId, userId));
-        groupService.deleteMemberFromGroup(groupId, userId);
-        LOGGER.info(String.format("Redirect to [%s%d]", TO_GROUP_REDIRECT, groupId));
-        return TO_GROUP_REDIRECT + groupId;
-    }
-
-    @GetMapping("/group/{groupId}/members/add/{userId}")
-    public String addMember(@PathVariable Integer groupId,
-                               @PathVariable Integer userId,
-                               ModelMap model){
-        LOGGER.info(String.format("Received GET request to add new user to group. Params: [groupId: %d; userId: %d]", groupId, userId));
-        groupService.addNewMemberToGroup(groupId, userId);
-        LOGGER.info(String.format("Redirect to [%s%d]", TO_GROUP_REDIRECT, groupId));
-        return TO_GROUP_REDIRECT + groupId;
     }
 }

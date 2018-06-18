@@ -72,6 +72,16 @@ label {
     margin-left: 5pt !important;
 }
 
+.pagination{
+    display: inline;
+    padding: 10px;
+}
+
+.cst-inline-search{
+    display: inline;
+    width: 500px;
+}
+
 /* Left Sidebar
 -----------------------------------------------------------------------------*/
 .left-sidebar {

@@ -30,7 +30,7 @@ public class ConnectionManagerJDBCImpl implements ConnectionManager {
             Class.forName(driverClass);
             connection = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException | SQLException e) {
-            logger.error(e.getMessage());
+            e.printStackTrace();
         }
         return connection;
     }

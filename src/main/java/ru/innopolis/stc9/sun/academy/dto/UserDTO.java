@@ -1,9 +1,14 @@
 package ru.innopolis.stc9.sun.academy.dto;
 
+import ru.innopolis.stc9.sun.academy.entity.Role;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class UserDTO {
     private Integer id;
@@ -30,6 +35,8 @@ public class UserDTO {
     private String password;
 
     private Boolean isActive = true;
+
+    private List<Role> roles;
 
     public UserDTO() {
 
@@ -94,6 +101,10 @@ public class UserDTO {
     public void setActive(Boolean active) {
         isActive = active;
     }
+
+    public List<Role> getRoles() { return roles;}
+
+    public void setRoles(List<Role> roles) {this.roles = roles;}
 
     @Override
     public boolean equals(Object o) {

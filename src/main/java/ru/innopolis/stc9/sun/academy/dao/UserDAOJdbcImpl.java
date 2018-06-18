@@ -6,13 +6,16 @@ import org.springframework.stereotype.Component;
 import ru.innopolis.stc9.sun.academy.connection.ConnectionManager;
 import ru.innopolis.stc9.sun.academy.dao.mapper.JDBCMapper;
 import ru.innopolis.stc9.sun.academy.dao.mapper.UserJdbcMapper;
+import ru.innopolis.stc9.sun.academy.entity.Role;
 import ru.innopolis.stc9.sun.academy.entity.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -27,6 +30,7 @@ public class UserDAOJdbcImpl implements UserDAO {
     static final String UPDATE_USER_SQL = "UPDATE \"user\" SET firstname = ?, lastname = ?, patronymic = ?, email = ?, password = ?, is_active = ? WHERE id = ?";
     static final String DELETE_USER_SQL = "DELETE FROM \"user\" WHERE id = ?";
     static final String SELECT_USERS_BY_GROUP_SQL = "SELECT * FROM \"user\" LEFT JOIN \"members\" ON \"user\".id=user_id WHERE group_id=?";
+    static final String SELECT_USER_SQL_EMAIL = "SELECT * FROM \"user\" WHERE email = ?";
 
     @Autowired
     public UserDAOJdbcImpl(ConnectionManager connectionManager, JDBCMapper<User> userMapper) {
@@ -132,5 +136,23 @@ public class UserDAOJdbcImpl implements UserDAO {
             LOGGER.error(e.getMessage(), e);
         }
         return users;
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        Connection connection = connectionManager.getConnection();
+        User user = null;
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_USER_SQL_EMAIL)) {
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    user = userMapper.toEntity(resultSet);
+                }
+            }
+            connection.close();
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+        return user;
     }
 }

@@ -8,6 +8,7 @@ public class GroupMapper {
     }
 
     public static GroupDTO toDto(Group group) {
+        if (group == null) return null;
         GroupDTO groupDTO = new GroupDTO();
         groupDTO.setId(group.getId());
         groupDTO.setTitle(group.getTitle());
@@ -19,6 +20,7 @@ public class GroupMapper {
     }
 
     public static Group toEntity(GroupDTO groupDTO) {
+        if (groupDTO == null) return null;
         return new Group(groupDTO.getId(), groupDTO.getTitle(), groupDTO.getDescription(), groupDTO.getStart_date(), groupDTO.getFinished_date(), groupDTO.isIs_active());
     }
 }
