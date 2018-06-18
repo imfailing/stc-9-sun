@@ -67,6 +67,10 @@
     padding: 5px;
     border-radius: 0;
 }
+label {
+    font-weight: normal !important;
+    margin-left: 5pt !important;
+}
 
 /* Left Sidebar
 -----------------------------------------------------------------------------*/
