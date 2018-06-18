@@ -9,6 +9,7 @@ public interface GroupDAO {
     boolean update(Group group);
     boolean deleteById(int id);
     Group getById(int id);
+    Group getByUserId(int id);
     Set<Group> getAll();
     boolean addNewMember(Integer groupId, Integer userId);
     boolean deleteGroupMember(Integer groupId, Integer userId);

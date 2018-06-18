@@ -9,6 +9,7 @@ public interface GroupService {
     boolean updateGroup(GroupDTO groupDTO);
     boolean deleteGroupById(int id);
     GroupDTO getGroupById(int id);
+    GroupDTO getGroupByUserId(int id);
     Set<GroupDTO> getAllGroups();
     boolean addNewMemberToGroup(Integer groupId, Integer userId);
     boolean deleteMemberFromGroup(Integer groupId, Integer userId);
