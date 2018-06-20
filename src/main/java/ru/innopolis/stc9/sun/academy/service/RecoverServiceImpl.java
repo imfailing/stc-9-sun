@@ -72,4 +72,9 @@ public class RecoverServiceImpl implements RecoverService {
             return false;
         }
     }
+
+    @Override
+    public boolean passRecovery(String hash) {
+        return false;
+    }
 }

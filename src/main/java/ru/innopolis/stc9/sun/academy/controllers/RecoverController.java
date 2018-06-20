@@ -18,11 +18,24 @@ public class RecoverController {
         this.recoverService = recoverService;
     }
 
-    @GetMapping
+    @GetMapping("/recover")
     public String recover(ModelMap model) {
         model.addAttribute("user", new UserDTO());
         model.addAttribute("title", TITLE);
         return "recover";
+    }
+
+
+    @GetMapping("/recover?hash={hash}")
+    public String recover(@PathVariable String hash, ModelMap model) {
+        model.addAttribute("user", new UserDTO());
+        model.addAttribute("title", TITLE);
+        if (recoverService.passRecovery(hash))
+        {
+            return "changepass";
+        } else {
+            return "recover";
+        }
     }
 
     @PostMapping
