@@ -11,6 +11,7 @@
                 <c:if test= "${isUSer}">
                 <li><a href="/users">Пользователи</a></li>
                 <li><a href="/groups">Группы</a></li>
+                <li><a href="/marks">Оценки</a></li>
                 </c:if>
             </ul>
         </div>
