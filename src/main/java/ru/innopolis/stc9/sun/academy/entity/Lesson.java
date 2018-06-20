@@ -91,6 +91,11 @@ public class Lesson {
 
     public void setGroup(Group group) {
         this.group = group;
+        if (group != null) {
+            groupId = group.getId();
+        } else {
+            groupId = null;
+        }
     }
 
     @Override
