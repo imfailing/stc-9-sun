@@ -6,5 +6,7 @@ import ru.innopolis.stc9.sun.academy.dto.UserDTO;
 public interface RecoverService {
     boolean sendMail(UserDTO userDTO, HashDTO hashDTOsh);
     boolean makeHash(UserDTO userDTO);
-    boolean passRecovery(String hash);
+    UserDTO passRecovery(String hash);
+    HashDTO getHashByHash(String hash);
+    boolean setPassword(UserDTO userDTO);
 }

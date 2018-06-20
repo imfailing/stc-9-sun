@@ -74,7 +74,21 @@ public class RecoverServiceImpl implements RecoverService {
     }
 
     @Override
-    public boolean passRecovery(String hash) {
-        return false;
+    public HashDTO getHashByHash(String hash) {
+        return HashMapper.toDto(hashDAO.getByHash(hash));
+    }
+
+
+    @Override
+    public boolean setPassword(UserDTO userDTO) {
+        userService.updateUser(userDTO);
+        return true;
+    }
+
+    @Override
+    public UserDTO passRecovery(String hash) {
+        UserDTO recoveredUser =userService.getUserById(getHashByHash(hash).getUserid());
+        recoveredUser.setPassword("");
+        return recoveredUser;
     }
 }

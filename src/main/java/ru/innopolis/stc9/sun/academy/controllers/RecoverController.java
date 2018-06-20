@@ -25,20 +25,19 @@ public class RecoverController {
         return "recover";
     }
 
-
-    @GetMapping("/recover?hash={hash}")
+    @GetMapping("/recover/{hash}")
     public String recover(@PathVariable String hash, ModelMap model) {
-        model.addAttribute("user", new UserDTO());
         model.addAttribute("title", TITLE);
-        if (recoverService.passRecovery(hash))
+        if (recoverService.passRecovery(hash)!=null)
         {
-            return "changepass";
+            model.addAttribute("user", recoverService.passRecovery(hash));
+            return "/changepass";
         } else {
-            return "recover";
+            return "/recover";
         }
     }
 
-    @PostMapping
+    @PostMapping("/recover")
     public String recover(@ModelAttribute("user") final UserDTO user,
                          BindingResult bindingResult,
                          ModelMap model) {
@@ -48,7 +47,22 @@ public class RecoverController {
             return "redirect:/recover?send=1";
         } else {
             model.addAttribute("title", TITLE);
-            return "/recover";
+            return "recover";
         }
     }
+
+    @PostMapping("/changepass")
+    public String changepass(@ModelAttribute("user") final UserDTO user,
+                          BindingResult bindingResult,
+                          ModelMap model) {
+        if (!bindingResult.hasErrors()) {
+            recoverService.setPassword(user);
+            model.addAttribute("title", TITLE);
+            return "redirect:/login";
+        } else {
+            model.addAttribute("title", TITLE);
+            return "recover";
+        }
+    }
+
 }
