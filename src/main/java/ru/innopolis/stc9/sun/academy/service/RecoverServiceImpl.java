@@ -59,7 +59,7 @@ public class RecoverServiceImpl implements RecoverService {
         {
             Hash hash = new Hash(UUID.randomUUID().toString(),recoveredUser.getId(),0);
             HashDTO hashDTO = HashMapper.toDto(hash);
-
+            LOGGER.info("Making hash for " + recoveredUser.getEmail() );
             if(hashDAO.add(hash))
             {
                 return sendMail(recoveredUser,hashDTO);
