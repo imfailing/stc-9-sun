@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class LoginController {
-    private static final Logger LOGGER = Logger.getLogger(LoginController.class);
+    private static final String TITLE = "Вход";
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(ModelMap model) {
-        model.addAttribute("title", "Вход");
+        model.addAttribute("title", TITLE);
         return "login";
     }
 }

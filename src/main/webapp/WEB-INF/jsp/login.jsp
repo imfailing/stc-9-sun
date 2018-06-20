@@ -21,6 +21,7 @@
         <label for= "inputPassword" class= ""></label>
         <input type= "password" id= "inputPassword" class= "" name= "j_password" required/>
         <input type= "submit" value= "Войти">
+        <a href="/recover">Восстановить пароль</a>
         </c:if>
     </form:form>
 <%@include file="footer.jsp" %>
