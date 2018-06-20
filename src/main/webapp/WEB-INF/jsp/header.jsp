@@ -24,7 +24,7 @@
                         </c:forEach>
                     </p>
                     <a class="btn btn-default navbar-btn btn-logout btn-head" href="/profile">Личный кабинет</a>
-                    <a class="btn btn-default navbar-btn btn-my-page btn-head" href="#">Выйти</a>
+                    <a class="btn btn-default navbar-btn btn-my-page btn-head" href="/logout">Выйти</a>
                     </c:if>
                 </div>
             </div>
