@@ -1,7 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="header.jsp" %>
-   <c:if test= "${not empty param.error}">
+   <c:if test= "${not empty param.send}">
             <br>По указанному e-mail направлена ссылка на восстановление
    </c:if>
     <form:form method="POST" action="" modelAttribute="user">

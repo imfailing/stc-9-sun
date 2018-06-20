@@ -26,8 +26,8 @@ public class HashJDBCMapper implements JDBCMapper<Hash> {
 
     @Override
     public void toStatement(PreparedStatement statement, Hash hash) throws SQLException {
-        statement.setInt(1,hash.getRecovered());
+        statement.setString(1,hash.getHash());
         statement.setInt(2,hash.getUserid());
-        statement.setString(3,hash.getHash());
+        statement.setInt(3,hash.getRecovered());
     }
 }

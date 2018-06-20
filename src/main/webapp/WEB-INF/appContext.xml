@@ -32,7 +32,7 @@
 
     <bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
         <property name="from" value="${mail.from}" />
-        <property name="subject" value="Mail subject" />
+        <property name="subject" value="Восстановление пароля" />
     </bean>
 
     <mvc:annotation-driven/>

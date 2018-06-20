@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.mail.MailException;
+import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -29,26 +30,25 @@ public class RecoverServiceImpl implements RecoverService {
         this.hashDAO = hashDAO;
     }
 
+    @Autowired
+    private MailSender mailSender;
+
+    @Autowired
+    private SimpleMailMessage preConfiguredMessage;
+
+
     @Override
     public boolean sendMail(UserDTO userDTO,HashDTO hashDTO) {
-        try (GenericXmlApplicationContext context = new GenericXmlApplicationContext()) {
-            context.load("classpath:applicationContext.xml");
-            context.refresh();
-            JavaMailSender mailSender = context.getBean("mailSender", JavaMailSender.class);
-            SimpleMailMessage templateMessage = context.getBean("templateMessage", SimpleMailMessage.class);
-
-            SimpleMailMessage mailMessage = new SimpleMailMessage(templateMessage);
-            mailMessage.setTo(userDTO.getEmail());
-            mailMessage.setText("Добрый день. Ссылка на восстановление - /recover?hash=" + hashDTO.getHash());
-            try {
-                //mailSender.send(mailMessage);
-                LOGGER.info("Mail sended");
-                LOGGER.info(mailMessage.getText());
-                return true;
-            } catch (MailException mailException) {
-                LOGGER.error( mailException.getMessage(),mailException);
-                return false;
-            }
+      try {
+          SimpleMailMessage mailMessage = new SimpleMailMessage(preConfiguredMessage);
+          mailMessage.setText("Добрый день! Ссылка на восстановление пароля - /recover?hash="+hashDTO.getHash());
+          //mailSender.send(mailMessage);
+          LOGGER.info("Mail sended");
+          LOGGER.info(mailMessage.getText());
+          return true;
+      } catch (MailException mailException) {
+        LOGGER.error( mailException.getMessage(),mailException);
+        return false;
         }
     }
 
