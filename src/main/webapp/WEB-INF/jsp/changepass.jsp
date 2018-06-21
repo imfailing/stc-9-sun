@@ -1,7 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="header.jsp" %>
-<form:form method="POST" action="/changepass" modelAttribute="user">
+<form:form method="POST" action="/changepass" modelAttribute="userDTO">
     <form:hidden path="id"></form:hidden>
     <form:hidden path="active"></form:hidden>
     <form:hidden path="email"></form:hidden>

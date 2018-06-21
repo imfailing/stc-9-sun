@@ -4,7 +4,7 @@
    <c:if test= "${not empty param.send}">
             <br>По указанному e-mail направлена ссылка на восстановление
    </c:if>
-    <form:form method="POST" action="" modelAttribute="user">
+    <form:form method="POST" action="" modelAttribute="userDTO">
         <form:label path="email">E-mail *</form:label>
         <form:input path="email"/>
         <form:errors path="email" cssClass="error"/>

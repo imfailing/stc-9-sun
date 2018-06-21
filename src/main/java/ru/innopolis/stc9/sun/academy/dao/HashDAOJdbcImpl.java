@@ -15,8 +15,8 @@ import java.sql.SQLException;
 @Component
 public class HashDAOJdbcImpl implements HashDAO {
     static final String INSERT_HASH_SQL = "INSERT into recover (hash, userid, recovered) VALUES (?, ?, ?)";
-    static final String UPDATE_HASH_SQL = "UPDATE recover set recovered=? where userid=? and hash = ?";
-    static final String SELECT_HASH_SQL = "SELECT hash,userid,recovered from recover where hash = ? order by date desc";
+    static final String UPDATE_HASH_SQL = "UPDATE recover set recovered=? where userid=?";
+    static final String SELECT_HASH_SQL = "SELECT hash,userid,recovered from recover where hash = ? and recovered = 0 order by date desc";
 
     private final ConnectionManager connectionManager;
     private final JDBCMapper<Hash> hashMapper;
@@ -47,7 +47,8 @@ public class HashDAOJdbcImpl implements HashDAO {
     public boolean update(Hash hash) {
         try(Connection connection = connectionManager.getConnection()){
             try (PreparedStatement statement = connection.prepareStatement(UPDATE_HASH_SQL)) {
-                hashMapper.toStatement(statement, hash);
+                statement.setInt(1,hash.getRecovered());
+                statement.setInt(2,hash.getUserid());
                 statement.execute();
             }
         } catch (SQLException e) {

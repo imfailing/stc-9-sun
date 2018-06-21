@@ -9,4 +9,5 @@ public interface RecoverService {
     UserDTO passRecovery(String hash);
     HashDTO getHashByHash(String hash);
     boolean setPassword(UserDTO userDTO);
+    boolean updateHash(HashDTO hashDTO);
 }
