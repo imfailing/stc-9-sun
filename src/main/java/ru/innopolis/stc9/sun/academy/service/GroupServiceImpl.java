@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import ru.innopolis.stc9.sun.academy.dao.GroupDAO;
 import ru.innopolis.stc9.sun.academy.dto.GroupDTO;
 import ru.innopolis.stc9.sun.academy.dto.mapper.GroupMapper;
-import ru.innopolis.stc9.sun.academy.entity.Group;
-
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -38,13 +36,8 @@ public class GroupServiceImpl implements GroupService {
     public GroupDTO getGroupById(int id) { return GroupMapper.toDto(groupDAO.getById(id)); }
 
     @Override
-    public GroupDTO getGroupByUserId(int id) {
-        GroupDTO groupDTO=null;
-        Group group = groupDAO.getByUserId(id);
-        if(group!=null){
-            groupDTO=GroupMapper.toDto(group);
-        }
-        return groupDTO;
+    public Set<GroupDTO> getGroupsByUserId(int id) {
+        return groupDAO.getByUserId(id).stream().map(GroupMapper::toDto).collect(Collectors.toSet());
     }
 
     @Override

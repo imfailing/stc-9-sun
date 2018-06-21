@@ -19,9 +19,13 @@
 <div class="panel panel-default">
     <div class="panel-heading">Список групп</div>
     <table class="table">
-        <tr>
-            <td>${group}</td>
-        </tr>
+        <c:forEach items="${groups}" var="group">
+            <tr>
+                <td>
+                        ${group.title}
+                </td>
+            </tr>
+        </c:forEach>
     </table>
 
 
