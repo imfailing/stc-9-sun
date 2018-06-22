@@ -44,10 +44,8 @@ public class RecoverController {
                          ModelMap model) {
         if (!bindingResult.hasErrors()) {
             recoverService.makeHash(userDTO);
-            model.addAttribute("title", TITLE);
             return "redirect:/recover?send=1";
         } else {
-            model.addAttribute("title", TITLE);
             return "recover";
         }
     }
@@ -58,10 +56,8 @@ public class RecoverController {
                           ModelMap model) {
         if (!bindingResult.hasErrors()) {
             recoverService.setPassword(userDTO);
-            model.addAttribute("title", TITLE);
             return "redirect:/login";
         } else {
-            model.addAttribute("title", TITLE);
             return "recover";
         }
     }
