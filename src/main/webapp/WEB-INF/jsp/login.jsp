@@ -13,14 +13,16 @@
     <c:if test= "${isUSer}">
         Вы вошли как: <security:authentication property= "principal.firstNmae"/> с ролью: <security:authentication property= "principal.roles"/>
     </c:if>
+    <c:if test= "${not isUSer}">
     <form:form name= "form" action= "/j_spring_security_check" method= "post">
-        <c:if test= "${not isUSer}">
+
         <label for= "inputEmail" class= ""></label>
         <input id= "inputEmail" class= "" name= "j_username" required autofocus/>
 
         <label for= "inputPassword" class= ""></label>
         <input type= "password" id= "inputPassword" class= "" name= "j_password" required/>
         <input type= "submit" value= "Войти">
-        </c:if>
     </form:form>
+    <a href="/recover">Восстановить пароль</a>
+    </c:if>
 <%@include file="footer.jsp" %>

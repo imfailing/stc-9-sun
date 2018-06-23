@@ -12,6 +12,8 @@
     <http auto-config= "true" use-expressions= "true"  >
         <intercept-url pattern="/login" access="isAnonymous()"/>
         <intercept-url pattern="/signup" access="isAnonymous()"/>
+        <intercept-url pattern="/recover/**" access="isAnonymous()"/>
+        <intercept-url pattern="/changepass**" access="isAnonymous()"/>
         <intercept-url pattern="/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
 
         <form-login login-page="/login" username-parameter="j_username"
