@@ -1,14 +1,12 @@
 package ru.innopolis.stc9.sun.academy.dto;
 
-import ru.innopolis.stc9.sun.academy.entity.Role;
+import ru.innopolis.stc9.sun.academy.authentication.roles.Role;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 public class UserDTO {
     private Integer id;
