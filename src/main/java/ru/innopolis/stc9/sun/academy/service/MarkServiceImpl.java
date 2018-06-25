@@ -1,6 +1,7 @@
 package ru.innopolis.stc9.sun.academy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.innopolis.stc9.sun.academy.dao.GroupDAO;
 import ru.innopolis.stc9.sun.academy.dao.LessonDAO;
@@ -26,6 +27,7 @@ public class MarkServiceImpl implements MarkService {
     private GroupDAO groupDAO;
 
     @Autowired
+    @Qualifier("userDAOHibernate")
     private UserDAO userDAO;
 
     @Override

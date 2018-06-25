@@ -1,6 +1,7 @@
 package ru.innopolis.stc9.sun.academy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.innopolis.stc9.sun.academy.dao.UserDAO;
 import ru.innopolis.stc9.sun.academy.dto.UserDTO;
@@ -10,7 +11,7 @@ public class IndexServiceImpl implements IndexService{
     private final UserDAO userDAO;
 
     @Autowired
-    public IndexServiceImpl(UserDAO userDAO) {
+    public IndexServiceImpl(@Qualifier("userDAOHibernate") UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 

@@ -10,16 +10,16 @@ import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
-@Repository
+@Repository("userDAOHibernate")
 @Transactional
-public class UserDAOImpl implements UserDAO {
+public class UserDAOHibernateImpl implements UserDAO {
 
     private final SessionFactory sessionFactory;
-    private static final Logger LOGGER = Logger.getLogger(UserDAOImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(UserDAOHibernateImpl.class);
     private static final String SELECT_USERS_BY_GROUP_SQL = "SELECT * FROM \"user\" LEFT JOIN \"members\" ON \"user\".id=user_id WHERE group_id=?";
 
     @Autowired
-    public UserDAOImpl(SessionFactory sessionFactory) {
+    public UserDAOHibernateImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
