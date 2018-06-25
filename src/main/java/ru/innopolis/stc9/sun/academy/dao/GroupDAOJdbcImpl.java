@@ -24,7 +24,7 @@ public class GroupDAOJdbcImpl implements GroupDAO {
     static final String GET_GROUP_SQL = "SELECT id, title, description, start_date, finished_date, is_active FROM groups WHERE id = ?";
     static final String INSERT_NEW_MEMBER_SQL = "INSERT INTO members (group_id, user_id) VALUES (?, ?)";
     static final String DELETE_MEMBER_SQL = "DELETE FROM members WHERE group_id = ? AND user_id=?";
-    static final String GET_GROUP_BY_USER_ID_SQL = "SELECT * FROM groups WHERE groups.id IN (SELECT group_id FROM members where user_id=?)";
+    static final String GET_GROUPS_BY_USER_ID_SQL = "SELECT * FROM groups WHERE groups.id IN (SELECT group_id FROM members where user_id=?)";
 
     private final ConnectionManager connectionManager;
     private final JDBCMapper<Group> groupMapper;
@@ -101,21 +101,21 @@ public class GroupDAOJdbcImpl implements GroupDAO {
     }
 
     @Override
-    public Group getByUserId(int id) {
-        Group group = null;
+    public Set<Group> getByUserId(int id) {
+        Set<Group> groups = new HashSet<>();
         try (Connection connection = connectionManager.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement(GET_GROUP_BY_USER_ID_SQL)) {
+            try (PreparedStatement statement = connection.prepareStatement(GET_GROUPS_BY_USER_ID_SQL)) {
                 statement.setInt(1, id);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
-                        group = groupMapper.toEntity(resultSet);
+                        groups.add(groupMapper.toEntity(resultSet));
                     }
                 }
             }
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return group;
+        return groups;
     }
 
     @Override
