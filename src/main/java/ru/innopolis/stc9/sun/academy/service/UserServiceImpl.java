@@ -1,11 +1,11 @@
 package ru.innopolis.stc9.sun.academy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.innopolis.stc9.sun.academy.dao.UserDAO;
 import ru.innopolis.stc9.sun.academy.dto.UserDTO;
 import ru.innopolis.stc9.sun.academy.dto.mapper.UserMapper;
-
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -14,7 +14,7 @@ public class UserServiceImpl implements UserService {
     private final UserDAO userDAO;
 
     @Autowired
-    public UserServiceImpl(UserDAO userDAO) {
+    public UserServiceImpl(@Qualifier("userDAOHibernate") UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 

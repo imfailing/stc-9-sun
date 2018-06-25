@@ -1,11 +1,15 @@
 package ru.innopolis.stc9.sun.academy.dto.mapper;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import ru.innopolis.stc9.sun.academy.authentication.roles.Role;
 import ru.innopolis.stc9.sun.academy.dto.UserDTO;
 import ru.innopolis.stc9.sun.academy.entity.User;
+import java.util.List;
 
 public class UserMapper {
-    UserMapper() {
-    }
+    UserMapper() { }
 
     public static UserDTO toDto(User user) {
         if (user != null) {
@@ -17,7 +21,9 @@ public class UserMapper {
             userDTO.setEmail(user.getEmail());
             userDTO.setPassword(user.getPassword());
             userDTO.setActive(user.getActive());
-            userDTO.setRoles(user.getRoles());
+            Gson gson = new GsonBuilder().create();
+            List<Role> roles = gson.fromJson(user.getRoles(), new TypeToken<List<Role>>(){}.getType());
+            userDTO.setRoles(roles);
             return userDTO;
         } else {
             return null;
@@ -33,7 +39,8 @@ public class UserMapper {
             user.setEmail(userDTO.getEmail());
             user.setPassword(userDTO.getPassword());
             user.setActive(userDTO.getActive());
-            user.setRoles(userDTO.getRoles());
+            Gson gson = new GsonBuilder().create();
+            user.setRoles(gson.toJson(userDTO.getRoles()));
             return user;
         } else {
             return null;

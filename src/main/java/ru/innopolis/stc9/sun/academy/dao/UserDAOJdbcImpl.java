@@ -5,20 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.innopolis.stc9.sun.academy.connection.ConnectionManager;
 import ru.innopolis.stc9.sun.academy.dao.mapper.JDBCMapper;
-import ru.innopolis.stc9.sun.academy.dao.mapper.UserJdbcMapper;
-import ru.innopolis.stc9.sun.academy.entity.Role;
 import ru.innopolis.stc9.sun.academy.entity.User;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-@Component
+@Component("userDAOJDBC")
 public class UserDAOJdbcImpl implements UserDAO {
     private final ConnectionManager connectionManager;
     private final JDBCMapper<User> userMapper;
@@ -106,11 +101,11 @@ public class UserDAOJdbcImpl implements UserDAO {
     }
 
     @Override
-    public boolean deleteById(int id) {
+    public boolean delete(User user) {
         int count = 0;
         try (Connection connection = connectionManager.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(DELETE_USER_SQL)) {
-                statement.setInt(1, id);
+                statement.setInt(1, user.getId());
                 count = statement.executeUpdate();
             }
         } catch (SQLException e) {

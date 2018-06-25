@@ -9,7 +9,7 @@ public interface UserDAO {
     User getById(int id);
     Set<User> getAll();
     boolean update(User user);
-    boolean deleteById(int id);
+    boolean delete(User user);
     Set<User> getByGroup(Integer groupId);
     User getByEmail(String email);
 }
