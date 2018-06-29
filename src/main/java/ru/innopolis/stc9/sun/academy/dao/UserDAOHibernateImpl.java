@@ -16,7 +16,7 @@ public class UserDAOHibernateImpl implements UserDAO {
 
     private final SessionFactory sessionFactory;
     private static final Logger LOGGER = Logger.getLogger(UserDAOHibernateImpl.class);
-    private static final String SELECT_USERS_BY_GROUP_SQL = "SELECT * FROM \"user\" LEFT JOIN \"members\" ON \"user\".id=user_id WHERE group_id=?";
+    private static final String SELECT_USERS_BY_GROUP_SQL = "SELECT * FROM \"user\" LEFT JOIN \"groups_users\" ON \"user\".id=users_id WHERE groups_id=?";
 
     @Autowired
     public UserDAOHibernateImpl(SessionFactory sessionFactory) {
@@ -80,7 +80,6 @@ public class UserDAOHibernateImpl implements UserDAO {
 
     @Override
     public Set<User> getByGroup(Integer groupId) {
-        LOGGER.info(String.format("Try to get user list from DB by group with id=%d", groupId));
         Set<User> users = new HashSet<>();
         try {
             Query query = sessionFactory.getCurrentSession().createNativeQuery(SELECT_USERS_BY_GROUP_SQL, User.class);

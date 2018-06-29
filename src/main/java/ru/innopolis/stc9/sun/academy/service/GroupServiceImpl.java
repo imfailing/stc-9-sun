@@ -1,6 +1,7 @@
 package ru.innopolis.stc9.sun.academy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.innopolis.stc9.sun.academy.dao.GroupDAO;
 import ru.innopolis.stc9.sun.academy.dto.GroupDTO;
@@ -15,7 +16,7 @@ public class GroupServiceImpl implements GroupService {
     private final GroupDAO groupDAO;
 
     @Autowired
-    public GroupServiceImpl(GroupDAO groupDAO) {
+    public GroupServiceImpl(@Qualifier("groupDAOHibernateImpl") GroupDAO groupDAO) {
         this.groupDAO = groupDAO;
     }
 
@@ -25,7 +26,8 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public boolean updateGroup(GroupDTO groupDTO) { return groupDAO.update(GroupMapper.toEntity(groupDTO)); }
+    public boolean updateGroup(GroupDTO groupDTO) {
+        return groupDAO.update(GroupMapper.toEntity(groupDTO));}
 
     @Override
     public boolean deleteGroupById(int id) {
@@ -33,7 +35,10 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public GroupDTO getGroupById(int id) { return GroupMapper.toDto(groupDAO.getById(id)); }
+    public GroupDTO getGroupById(int id) {
+        return GroupMapper.toDto(groupDAO.getById(id));
+
+    }
 
     @Override
     public Set<GroupDTO> getGroupsByUserId(int id) {

@@ -29,8 +29,8 @@ public class GroupJdbcMapper implements JDBCMapper<Group> {
     public void toStatement(PreparedStatement statement, Group group) throws SQLException {
         statement.setString(1, group.getTitle());
         statement.setString(2, group.getDescription());
-        statement.setString(3, group.getStart_date());
-        statement.setString(4, group.getFinished_date());
-        statement.setBoolean(5, group.isIs_active());
+        statement.setString(3, group.getStartDate());
+        statement.setString(4, group.getFinishedDate());
+        statement.setBoolean(5, group.isActive());
     }
 }

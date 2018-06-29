@@ -23,6 +23,7 @@ public class MarkServiceImpl implements MarkService {
     @Autowired
     private LessonDAO lessonDAO;
 
+    @Qualifier("groupDAOHibernateImpl")
     @Autowired
     private GroupDAO groupDAO;
 

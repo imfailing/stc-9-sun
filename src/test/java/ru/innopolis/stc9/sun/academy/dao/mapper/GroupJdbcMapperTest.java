@@ -26,7 +26,7 @@ public class GroupJdbcMapperTest {
         when(resultSet.getString("title")).thenReturn(group.getTitle());
         when(resultSet.getString("description")).thenReturn(group.getDescription());
         when(resultSet.getString("start_date")).thenReturn(group.getStart_date());
-        when(resultSet.getString("finished_date")).thenReturn(group.getFinished_date());
+        when(resultSet.getString("finished_date")).thenReturn(group.getFinishedDate());
         when(resultSet.getBoolean("is_active")).thenReturn(group.isIs_active());
         preparedStatement = mock(PreparedStatement.class);
     }
@@ -43,7 +43,7 @@ public class GroupJdbcMapperTest {
         verify(preparedStatement).setString(1, group.getTitle());
         verify(preparedStatement).setString(2, group.getDescription());
         verify(preparedStatement).setString(3, group.getStart_date());
-        verify(preparedStatement).setString(4, group.getFinished_date());
+        verify(preparedStatement).setString(4, group.getFinishedDate());
         verify(preparedStatement).setBoolean(5, group.isIs_active());
     }
 }
