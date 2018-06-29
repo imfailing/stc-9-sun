@@ -44,7 +44,8 @@ public class GroupDAOHibernateImpl implements GroupDAO {
     public boolean update(Group group) {
         Session session = sessionFactory.getCurrentSession();
         try{
-            session.update(group);
+            group.setUsers(session.get(Group.class,group.getId()).getUsers());
+            session.merge(group);
         }catch (HibernateError error){
             logger.error(error.getMessage());
             return false;

@@ -1,15 +1,12 @@
 package ru.innopolis.stc9.sun.academy.entity;
 
 import lombok.Data;
-import org.hibernate.annotations.DynamicUpdate;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @Entity
-@DynamicUpdate
 @Table(name = "groups")
 public class Group {
     @Id
