@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import ru.innopolis.stc9.sun.academy.connection.ConnectionManager;
 import ru.innopolis.stc9.sun.academy.dao.mapper.JDBCMapper;
 import ru.innopolis.stc9.sun.academy.entity.Lesson;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +13,7 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-@Component
+@Component("lessonDAOJDBC")
 public class LessonDAOJDBCImpl implements LessonDAO {
     private final ConnectionManager connectionManager;
     private final JDBCMapper<Lesson> lessonMapper;
@@ -80,11 +79,11 @@ public class LessonDAOJDBCImpl implements LessonDAO {
     }
 
     @Override
-    public boolean deleteById(int id) {
+    public boolean delete(Lesson lesson) {
         int count = 0;
         try (Connection connection = connectionManager.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(DELETE_LESSON_SQL)) {
-                statement.setInt(1, id);
+                statement.setInt(1, lesson.getId());
                 count = statement.executeUpdate();
             }
         } catch (SQLException e) {

@@ -2,7 +2,7 @@ package ru.innopolis.stc9.sun.academy.entity;
 
 import lombok.Data;
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,23 +10,33 @@ import java.util.Set;
 @Entity
 @Table(name = "groups")
 public class Group {
+
     @Id
     @SequenceGenerator(name = "groupSeq", sequenceName = "group_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "groupSeq")
     private int id;
-    @Column(name = "title")
+
     private String title;
-    @Column(name="description")
+
     private String description;
+
     @Column (name = "start_date")
+    @Temporal(TemporalType.DATE)
     private Date startDate;
+
     @Column (name = "finished_date")
+    @Temporal(TemporalType.DATE)
     private Date finishedDate;
+
     @Column (name = "is_active")
     private boolean isActive;
+
     @ManyToMany
     @JoinTable(name="groups_users")
     private Set<User> users=new HashSet<>();
+
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
+    private Set<Lesson> lessons;
 
     public Group() {
     }
