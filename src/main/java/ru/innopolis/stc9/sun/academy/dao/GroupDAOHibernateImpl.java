@@ -8,6 +8,8 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.innopolis.stc9.sun.academy.entity.Group;
+import ru.innopolis.stc9.sun.academy.entity.User;
+
 import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.HashSet;
@@ -17,10 +19,8 @@ import java.util.Set;
 public class GroupDAOHibernateImpl implements GroupDAO {
 
     private final SessionFactory sessionFactory;
-    private static final String HQL_GET_ALL = "select a from " + Group.class.getSimpleName() + " a";
-    private static final String SQL_GET_BY_USER_ID ="SELECT * FROM \"groups\" LEFT JOIN \"groups_users\" ON \"groups\".id=groups_id WHERE users_id=?";
-    private static final String SQL_ADD_USER_TO_GROUP ="INSERT INTO groups_users VALUES (?,?)";
-    private static final String SQL_DELETE_USER_FROM_GROUP ="DELETE FROM groups_users WHERE groups_id=? AND users_id=?";
+    private static final String HQL_GET_ALL = "from Group";
+    private static final String HQL_GET_BY_USER_ID = "select groups from User as u where u.id=:userId";
     private static final Logger logger = Logger.getLogger(UserDAOHibernateImpl.class);
 
     @Autowired
@@ -30,8 +30,8 @@ public class GroupDAOHibernateImpl implements GroupDAO {
 
     @Override
     public boolean add(Group group) {
-        Session session = sessionFactory.getCurrentSession();
         try{
+            Session session = sessionFactory.getCurrentSession();
             session.save(group);
         }catch (HibernateError error){
             logger.error(error.getMessage());
@@ -42,8 +42,8 @@ public class GroupDAOHibernateImpl implements GroupDAO {
 
     @Override
     public boolean update(Group group) {
-        Session session = sessionFactory.getCurrentSession();
         try{
+            Session session = sessionFactory.getCurrentSession();
             group.setUsers(session.get(Group.class,group.getId()).getUsers());
             session.merge(group);
         }catch (HibernateError error){
@@ -55,8 +55,8 @@ public class GroupDAOHibernateImpl implements GroupDAO {
 
     @Override
     public boolean deleteById(int id) {
-        Session session = sessionFactory.getCurrentSession();
         try{
+            Session session = sessionFactory.getCurrentSession();
             session.remove(getById(id));
         }catch (HibernateError error){
             logger.error(error.getMessage());
@@ -68,8 +68,8 @@ public class GroupDAOHibernateImpl implements GroupDAO {
     @Override
     public Group getById(int id) {
         Group group=null;
-        Session session = sessionFactory.getCurrentSession();
         try{
+            Session session = sessionFactory.getCurrentSession();
             group=session.get(Group.class,id);
         }catch (HibernateError error){
             logger.error(error.getMessage());
@@ -79,11 +79,12 @@ public class GroupDAOHibernateImpl implements GroupDAO {
     }
 
     @Override
-    public Set<Group> getByUserId(int id) {
-        Set<Group> groups = new HashSet<>();
+    public Set<Group> getByUserId(int userId) {
+        Set<Group> groups=null;
         try {
-            Query query = sessionFactory.getCurrentSession().createNativeQuery(SQL_GET_BY_USER_ID, Group.class);
-            query.setParameter(1, id);
+            Session session = sessionFactory.getCurrentSession();
+            Query query = session.createQuery(HQL_GET_BY_USER_ID);
+            query.setParameter("userId",userId);
             groups = new HashSet<>(query.list());
         } catch (HibernateError e) {
             logger.error(e.getMessage());
@@ -94,8 +95,8 @@ public class GroupDAOHibernateImpl implements GroupDAO {
     @Override
     public Set<Group> getAll() {
         Set<Group> groups=null;
-        Session session = sessionFactory.getCurrentSession();
         try{
+            Session session = sessionFactory.getCurrentSession();
             groups=new HashSet<>(session.createQuery(HQL_GET_ALL).list());
         }catch (HibernateError error){
             logger.error(error.getMessage());
@@ -108,10 +109,11 @@ public class GroupDAOHibernateImpl implements GroupDAO {
     public boolean addNewMember(Integer groupId, Integer userId) {
         logger.info("user_id="+userId+ "added to "+groupId+"group");
         try {
-            Query query = sessionFactory.getCurrentSession().createNativeQuery(SQL_ADD_USER_TO_GROUP);
-            query.setParameter(1, groupId);
-            query.setParameter(2, userId);
-            query.executeUpdate();
+            Session session = sessionFactory.getCurrentSession();
+            Group group=session.get(Group.class,groupId);
+            User user = session.get(User.class,userId);
+            group.getUsers().add(user);
+            session.update(group);
         } catch (HibernateError e) {
             logger.error(e.getMessage());
             return false;
@@ -123,10 +125,11 @@ public class GroupDAOHibernateImpl implements GroupDAO {
     public boolean deleteGroupMember(Integer groupId, Integer userId) {
         logger.info("user_id="+userId+ "was deleted from "+groupId+"group");
         try {
-            Query query = sessionFactory.getCurrentSession().createNativeQuery(SQL_DELETE_USER_FROM_GROUP);
-            query.setParameter(1, groupId);
-            query.setParameter(2, userId);
-            query.executeUpdate();
+            Session session = sessionFactory.getCurrentSession();
+            Group group=session.get(Group.class,groupId);
+            User user = session.get(User.class,userId);
+            group.getUsers().remove(user);
+            session.update(group);
         } catch (HibernateError e) {
             logger.error(e.getMessage());
             return false;
