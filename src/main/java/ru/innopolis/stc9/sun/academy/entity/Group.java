@@ -2,6 +2,7 @@ package ru.innopolis.stc9.sun.academy.entity;
 
 import lombok.Data;
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,9 +19,9 @@ public class Group {
     @Column(name="description")
     private String description;
     @Column (name = "start_date")
-    private String startDate;
+    private Date startDate;
     @Column (name = "finished_date")
-    private String finishedDate;
+    private Date finishedDate;
     @Column (name = "is_active")
     private boolean isActive;
     @ManyToMany
@@ -34,7 +35,7 @@ public class Group {
         this.id = id;
     }
 
-    public Group(int id, String title, String description, String startDate, String finishedDate, boolean isActive) {
+    public Group(int id, String title, String description, Date startDate, Date finishedDate, boolean isActive) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -43,7 +44,7 @@ public class Group {
         this.isActive = isActive;
     }
 
-    public Group(String title, String description, String startDate, String finishedDate, boolean isActive) {
+    public Group(String title, String description, Date startDate, Date finishedDate, boolean isActive) {
         this.title = title;
         this.description = description;
         this.startDate = startDate;

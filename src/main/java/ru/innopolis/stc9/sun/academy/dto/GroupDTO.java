@@ -2,6 +2,7 @@ package ru.innopolis.stc9.sun.academy.dto;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Date;
 import java.util.Objects;
 
 public class GroupDTO {
@@ -15,14 +16,12 @@ public class GroupDTO {
     private String description;
 
     @NotNull
-    @Size(min=2, max=25)
-    private String start_date;
+    private Date startDate;
 
     @NotNull
-    @Size(min=2, max=25)
-    private String finished_date;
+    private Date finishedDate;
 
-    private boolean is_active = true;
+    private boolean active = true;
 
     public GroupDTO() {
     }
@@ -55,28 +54,28 @@ public class GroupDTO {
         this.description = decription;
     }
 
-    public String getStart_date() {
-        return start_date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(String start_date) {
-        this.start_date = start_date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public String getFinished_date() {
-        return finished_date;
+    public Date getFinishedDate() {
+        return finishedDate;
     }
 
-    public void setFinished_date(String finished_date) {
-        this.finished_date = finished_date;
+    public void setFinishedDate(Date finishedDate) {
+        this.finishedDate = finishedDate;
     }
 
-    public boolean isIs_active() {
-        return is_active;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setIs_active(boolean is_active) {
-        this.is_active = is_active;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override
@@ -85,24 +84,23 @@ public class GroupDTO {
         if (o == null || getClass() != o.getClass()) return false;
         GroupDTO groupDTO = (GroupDTO) o;
         return id == groupDTO.id &&
-                is_active == groupDTO.is_active &&
+                active == groupDTO.active &&
                 Objects.equals(title, groupDTO.title) &&
                 Objects.equals(description, groupDTO.description) &&
-                Objects.equals(start_date, groupDTO.start_date) &&
-                Objects.equals(finished_date, groupDTO.finished_date);
+                Objects.equals(startDate, groupDTO.startDate) &&
+                Objects.equals(finishedDate, groupDTO.finishedDate);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id, title, description, start_date, finished_date, is_active);
+        return Objects.hash(id, title, description, startDate, finishedDate, active);
     }
 
     @Override
     public String toString() {
-        return String.format(
-                "GroupDTO{id=%d, title='%s', description='%s', start_date='%s', finished_date='%s', is_active=%s}",
-                id, title, description, start_date, finished_date, is_active
-        );
+        return "GroupDTO{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

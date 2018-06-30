@@ -1,7 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="header.jsp" %>
-
 <div class="panel panel-default">
     <!-- Содержание панели по умолчанию -->
     <div class="panel-heading">${group.title}</div>
@@ -57,7 +56,7 @@
             </tr>
             <tr>
                 <td>Дата начала</td>
-                <td>${group.start_date}</td>
+                <td>${group.startDate}</td>
                 <td>
                     <c:if test="${group.id != 0}">
                         <a role="button" data-toggle="collapse" href="#changeStart" aria-expanded="false" aria-controls="changeStart">
@@ -71,8 +70,8 @@
                     <div <c:if test="${group.id != 0}"> class="collapse" id="changeStart" </c:if>>
                         <div class="well">
                             <div class="form-group">
-                                <form:input path="start_date" placeholder="Введите дату начала" cssClass="form-control"/>
-                                <form:errors path="start_date" cssClass="alert alert-danger custom-alert" role="alert"/>
+                                <form:input type="date" path="startDate" placeholder="Введите дату начала" cssClass="form-control"/>
+                                <form:errors path="startDate" cssClass="alert alert-danger custom-alert" role="alert"/>
                             </div>
                         </div>
                     </div>
@@ -80,7 +79,7 @@
             </tr>
             <tr>
                 <td>Дата завершения</td>
-                <td>${group.finished_date}</td>
+                <td>${group.finishedDate}</td>
                 <td>
                     <c:if test="${group.id != 0}">
                         <a role="button" data-toggle="collapse" href="#changeFinish" aria-expanded="false" aria-controls="changeFinish">
@@ -94,8 +93,8 @@
                     <div <c:if test="${group.id != 0}"> class="collapse" id="changeFinish" </c:if>>
                         <div class="well">
                             <div class="form-group">
-                                <form:input path="finished_date" placeholder="Введите дату завершения" cssClass="form-control"/>
-                                <form:errors path="finished_date" cssClass="alert alert-danger custom-alert" role="alert"/>
+                                <form:input type="date" path="finishedDate" placeholder="Введите дату завершения" cssClass="form-control"/>
+                                <form:errors path="finishedDate" cssClass="alert alert-danger custom-alert" role="alert"/>
                             </div>
                         </div>
                     </div>
