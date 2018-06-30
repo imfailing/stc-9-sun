@@ -22,9 +22,9 @@ public class GroupDAOJdbcImpl implements GroupDAO {
     static final String DELETE_GROUP_SQL = "DELETE FROM groups WHERE id = ?";
     static final String SELECT_ALL_GROUPS_SQL = "SELECT id, title, description, start_date, finished_date, is_active FROM groups ORDER BY id";
     static final String GET_GROUP_SQL = "SELECT id, title, description, start_date, finished_date, is_active FROM groups WHERE id = ?";
-    static final String INSERT_NEW_MEMBER_SQL = "INSERT INTO members (group_id, user_id) VALUES (?, ?)";
-    static final String DELETE_MEMBER_SQL = "DELETE FROM members WHERE group_id = ? AND user_id=?";
-    static final String GET_GROUPS_BY_USER_ID_SQL = "SELECT * FROM groups WHERE groups.id IN (SELECT group_id FROM members where user_id=?)";
+    static final String INSERT_NEW_MEMBER_SQL = "INSERT INTO groups_users (groups_id, users_id) VALUES (?, ?)";
+    static final String DELETE_MEMBER_SQL = "DELETE FROM groups_users WHERE groups_id = ? AND users_id=?";
+    static final String GET_GROUPS_BY_USER_ID_SQL = "SELECT * FROM groups WHERE groups.id IN (SELECT groups_id FROM groups_users where users_id=?)";
 
     private final ConnectionManager connectionManager;
     private final JDBCMapper<Group> groupMapper;

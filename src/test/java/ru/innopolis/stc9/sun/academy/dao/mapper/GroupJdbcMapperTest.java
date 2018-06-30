@@ -3,6 +3,8 @@ package ru.innopolis.stc9.sun.academy.dao.mapper;
 import org.junit.Before;
 import org.junit.Test;
 import ru.innopolis.stc9.sun.academy.entity.Group;
+
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,13 +23,13 @@ public class GroupJdbcMapperTest {
         groupJdbcMapper = new GroupJdbcMapper();
         resultSet = mock(ResultSet.class);
         group = new Group(1, "Title", "Description",
-                "Start Date", "Finish Date", true);
+                Date.valueOf("2018-07-31"), Date.valueOf("2018-08-31"), true);
         when(resultSet.getInt("id")).thenReturn(group.getId());
         when(resultSet.getString("title")).thenReturn(group.getTitle());
         when(resultSet.getString("description")).thenReturn(group.getDescription());
-        when(resultSet.getString("start_date")).thenReturn(group.getStart_date());
-        when(resultSet.getString("finished_date")).thenReturn(group.getFinished_date());
-        when(resultSet.getBoolean("is_active")).thenReturn(group.isIs_active());
+        when(resultSet.getDate("start_date")).thenReturn(group.getStartDate());
+        when(resultSet.getDate("finished_date")).thenReturn(group.getFinishedDate());
+        when(resultSet.getBoolean("is_active")).thenReturn(group.isActive());
         preparedStatement = mock(PreparedStatement.class);
     }
 
@@ -42,8 +44,8 @@ public class GroupJdbcMapperTest {
         groupJdbcMapper.toStatement(preparedStatement, group);
         verify(preparedStatement).setString(1, group.getTitle());
         verify(preparedStatement).setString(2, group.getDescription());
-        verify(preparedStatement).setString(3, group.getStart_date());
-        verify(preparedStatement).setString(4, group.getFinished_date());
-        verify(preparedStatement).setBoolean(5, group.isIs_active());
+        verify(preparedStatement).setDate(3, group.getStartDate());
+        verify(preparedStatement).setDate(4, group.getFinishedDate());
+        verify(preparedStatement).setBoolean(5, group.isActive());
     }
 }

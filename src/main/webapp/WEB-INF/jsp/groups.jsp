@@ -28,8 +28,8 @@
                             ${group.title}
                     </a>
                 </td>
-                <td>${group.start_date}</td>
-                <td>${group.finished_date}</td>
+                <td>${group.startDate}</td>
+                <td>${group.finishedDate}</td>
             </tr>
         </c:forEach>
     </table>

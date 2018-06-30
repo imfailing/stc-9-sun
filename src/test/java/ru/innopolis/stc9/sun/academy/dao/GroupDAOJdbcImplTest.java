@@ -6,10 +6,8 @@ import ru.innopolis.stc9.sun.academy.connection.ConnectionManager;
 import ru.innopolis.stc9.sun.academy.dao.mapper.GroupJdbcMapper;
 import ru.innopolis.stc9.sun.academy.dao.mapper.JDBCMapper;
 import ru.innopolis.stc9.sun.academy.entity.Group;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -31,7 +29,7 @@ public class GroupDAOJdbcImplTest {
     public void before() throws SQLException {
         idForException = 23451346;
         group = new Group(1, "Title", "Description",
-                "Start Date", "Finish Date", true);
+                Date.valueOf("2018-07-31"), Date.valueOf("2018-08-31"), true);
         groupForExceptionCall = new Group(0);
         statementArguments = new ArrayList<>();
         ConnectionManager connectionManager = mock(ConnectionManager.class);

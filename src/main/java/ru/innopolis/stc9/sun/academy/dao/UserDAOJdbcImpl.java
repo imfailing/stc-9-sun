@@ -24,7 +24,7 @@ public class UserDAOJdbcImpl implements UserDAO {
     static final String SELECT_ALL_USERS_SQL = "SELECT * FROM \"user\" ORDER BY id";
     static final String UPDATE_USER_SQL = "UPDATE \"user\" SET firstname = ?, lastname = ?, patronymic = ?, email = ?, password = ?, is_active = ? WHERE id = ?";
     static final String DELETE_USER_SQL = "DELETE FROM \"user\" WHERE id = ?";
-    static final String SELECT_USERS_BY_GROUP_SQL = "SELECT * FROM \"user\" LEFT JOIN \"members\" ON \"user\".id=user_id WHERE group_id=?";
+    static final String SELECT_USERS_BY_GROUP_SQL = "SELECT * FROM \"user\" LEFT JOIN groups_users ON \"user\".id=users_id WHERE groups_id=?";
     static final String SELECT_USER_SQL_EMAIL = "SELECT * FROM \"user\" WHERE email = ?";
 
     @Autowired

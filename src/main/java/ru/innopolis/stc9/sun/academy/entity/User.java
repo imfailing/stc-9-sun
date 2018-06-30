@@ -1,8 +1,12 @@
 package ru.innopolis.stc9.sun.academy.entity;
 
-import lombok.Data;
-import javax.persistence.*;
+import lombok.*;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@ToString
 @Data
 @Entity
 @Table(name = "\"user\"")
@@ -29,6 +33,9 @@ public class User {
 
     @Column(name = "is_active")
     private Boolean active = true;
+
+    @ManyToMany(mappedBy = "users")
+    private Set<Group> groups = new HashSet<>();
 
     public User() { }
 
