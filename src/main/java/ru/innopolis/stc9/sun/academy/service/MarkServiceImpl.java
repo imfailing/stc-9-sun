@@ -8,7 +8,9 @@ import ru.innopolis.stc9.sun.academy.dao.LessonDAO;
 import ru.innopolis.stc9.sun.academy.dao.MarkDAO;
 import ru.innopolis.stc9.sun.academy.dao.UserDAO;
 import ru.innopolis.stc9.sun.academy.dto.MarkDTO;
+import ru.innopolis.stc9.sun.academy.dto.UserDTO;
 import ru.innopolis.stc9.sun.academy.dto.mapper.MarkMapper;
+import ru.innopolis.stc9.sun.academy.dto.mapper.UserMapper;
 import ru.innopolis.stc9.sun.academy.entity.Lesson;
 import ru.innopolis.stc9.sun.academy.entity.Mark;
 import ru.innopolis.stc9.sun.academy.entity.User;
@@ -57,14 +59,26 @@ public class MarkServiceImpl implements MarkService {
     }
 
     @Override
-    public Map<User, Mark> getMarksWithUserByLessonIdAndGroupId(Integer lessonId, Integer groupId) {
-        Map<User, Mark> map = new HashMap<>();
-        Set<User> users = userDAO.getByGroup(groupId);
-        Set<Mark> marks = markDAO.getAllByLessonId(lessonId);
+    public Map<UserDTO, MarkDTO> getMarksWithUserByLessonIdAndGroupId(Integer lessonId, Integer groupId) {
+        Map<UserDTO, MarkDTO> map = new HashMap<>();
+        Set<UserDTO> users = userDAO
+                .getByGroup(groupId)
+                .stream()
+                .map(UserMapper::toDto)
+                .collect(Collectors.toSet());
+        Set<MarkDTO> marks = markDAO
+                .getAllByLessonId(lessonId)
+                .stream()
+                .map(MarkMapper::toDto)
+                .collect(Collectors.toSet());
         users.forEach(
-                (user) -> marks.forEach(
-                        (mark) -> map.put(user, user.getId().equals(mark.getUserId()) ? mark : null)
-                )
+                (user) -> {
+                    map.put(user, null);
+                    marks.forEach(
+                            (mark) -> {
+                                if (user.getId().equals(mark.getUser().getId())) map.put(user, mark);
+                            });
+                }
         );
         return map;
     }
