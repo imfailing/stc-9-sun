@@ -21,7 +21,7 @@ public class Lesson {
 
     private String description;
 
-    @ManyToOne(optional = false, cascade = CascadeType.REMOVE)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "group_id")
     private Group group;
 
