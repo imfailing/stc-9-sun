@@ -11,7 +11,10 @@ import ru.innopolis.stc9.sun.academy.dto.MarkDTO;
 import ru.innopolis.stc9.sun.academy.dto.mapper.MarkMapper;
 import ru.innopolis.stc9.sun.academy.entity.Lesson;
 import ru.innopolis.stc9.sun.academy.entity.Mark;
+import ru.innopolis.stc9.sun.academy.entity.User;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -51,5 +54,18 @@ public class MarkServiceImpl implements MarkService {
             mark.setUser(userDAO.getById(mark.getUserId()));
         }
         return marks.stream().map(MarkMapper::toDto).collect(Collectors.toSet());
+    }
+
+    @Override
+    public Map<User, Mark> getMarksWithUserByLessonIdAndGroupId(Integer lessonId, Integer groupId) {
+        Map<User, Mark> map = new HashMap<>();
+        Set<User> users = userDAO.getByGroup(groupId);
+        Set<Mark> marks = markDAO.getAllByLessonId(lessonId);
+        users.forEach(
+                (user) -> marks.forEach(
+                        (mark) -> map.put(user, user.getId().equals(mark.getUserId()) ? mark : null)
+                )
+        );
+        return map;
     }
 }
