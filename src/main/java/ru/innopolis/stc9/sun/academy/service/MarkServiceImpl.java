@@ -21,6 +21,7 @@ public class MarkServiceImpl implements MarkService {
     private MarkDAO markDAO;
 
     @Autowired
+    @Qualifier("lessonDAOHibernate")
     private LessonDAO lessonDAO;
 
     @Qualifier("groupDAOHibernateImpl")
@@ -46,7 +47,7 @@ public class MarkServiceImpl implements MarkService {
         Set<Mark> marks = markDAO.getAllByUserId(userId);
         for (Mark mark : marks) {
             Lesson lesson = lessonDAO.getById(mark.getLessonId());
-            lesson.setGroup(groupDAO.getById(lesson.getGroupId()));
+            lesson.setGroup(groupDAO.getById(lesson.getGroup().getId()));
             mark.setLesson(lesson);
             mark.setUser(userDAO.getById(mark.getUserId()));
         }

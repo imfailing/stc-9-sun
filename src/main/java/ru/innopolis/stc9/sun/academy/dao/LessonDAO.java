@@ -8,6 +8,6 @@ public interface LessonDAO {
     boolean add(Lesson lesson);
     Lesson getById(Integer id);
     boolean update(Lesson lesson);
-    boolean deleteById(int id);
+    boolean delete(Lesson lesson);
     Set<Lesson> getByGroup(Integer groupId);
 }

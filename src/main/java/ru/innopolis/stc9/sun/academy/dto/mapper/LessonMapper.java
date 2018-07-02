@@ -3,8 +3,6 @@ package ru.innopolis.stc9.sun.academy.dto.mapper;
 import ru.innopolis.stc9.sun.academy.dto.LessonDTO;
 import ru.innopolis.stc9.sun.academy.entity.Lesson;
 
-import java.sql.Date;
-
 public class LessonMapper {
 
     public LessonMapper() {
@@ -17,7 +15,7 @@ public class LessonMapper {
         lessonDTO.setDate(lesson.getDate());
         lessonDTO.setTitle(lesson.getTitle());
         lessonDTO.setDescription(lesson.getDescription());
-        lessonDTO.setGroupId(lesson.getGroupId());
+        lessonDTO.setGroupId(lesson.getGroup().getId());
         lessonDTO.setGroup(GroupMapper.toDto(lesson.getGroup()));
         return lessonDTO;
     }
@@ -26,10 +24,9 @@ public class LessonMapper {
         if (lessonDTO == null) return null;
         Lesson lesson = new Lesson();
         lesson.setId(lessonDTO.getId());
-        lesson.setDate(new Date(lessonDTO.getDate().getTime()));
+        lesson.setDate(lessonDTO.getDate());
         lesson.setTitle(lessonDTO.getTitle());
         lesson.setDescription(lessonDTO.getDescription());
-        lesson.setGroupId(lessonDTO.getGroupId());
         lesson.setGroup(GroupMapper.toEntity(lessonDTO.getGroup()));
         return lesson;
     }

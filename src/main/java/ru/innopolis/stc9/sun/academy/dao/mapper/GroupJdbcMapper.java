@@ -2,6 +2,8 @@ package ru.innopolis.stc9.sun.academy.dao.mapper;
 
 import org.springframework.stereotype.Component;
 import ru.innopolis.stc9.sun.academy.entity.Group;
+
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,8 +30,8 @@ public class GroupJdbcMapper implements JDBCMapper<Group> {
     public void toStatement(PreparedStatement statement, Group group) throws SQLException {
         statement.setString(1, group.getTitle());
         statement.setString(2, group.getDescription());
-        statement.setDate(3, group.getStartDate());
-        statement.setDate(4, group.getFinishedDate());
+        statement.setDate(3, new Date(group.getStartDate().getTime()));
+        statement.setDate(4, new Date(group.getFinishedDate().getTime()));
         statement.setBoolean(5, group.isActive());
     }
 }

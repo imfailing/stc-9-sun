@@ -3,7 +3,6 @@ package ru.innopolis.stc9.sun.academy.dao.mapper;
 import org.junit.Before;
 import org.junit.Test;
 import ru.innopolis.stc9.sun.academy.entity.Group;
-
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,8 +26,8 @@ public class GroupJdbcMapperTest {
         when(resultSet.getInt("id")).thenReturn(group.getId());
         when(resultSet.getString("title")).thenReturn(group.getTitle());
         when(resultSet.getString("description")).thenReturn(group.getDescription());
-        when(resultSet.getDate("start_date")).thenReturn(group.getStartDate());
-        when(resultSet.getDate("finished_date")).thenReturn(group.getFinishedDate());
+        when(resultSet.getDate("start_date")).thenReturn(new Date(group.getStartDate().getTime()));
+        when(resultSet.getDate("finished_date")).thenReturn(new Date(group.getFinishedDate().getTime()));
         when(resultSet.getBoolean("is_active")).thenReturn(group.isActive());
         preparedStatement = mock(PreparedStatement.class);
     }
@@ -44,8 +43,8 @@ public class GroupJdbcMapperTest {
         groupJdbcMapper.toStatement(preparedStatement, group);
         verify(preparedStatement).setString(1, group.getTitle());
         verify(preparedStatement).setString(2, group.getDescription());
-        verify(preparedStatement).setDate(3, group.getStartDate());
-        verify(preparedStatement).setDate(4, group.getFinishedDate());
+        verify(preparedStatement).setDate(3, new Date(group.getStartDate().getTime()));
+        verify(preparedStatement).setDate(4, new Date(group.getFinishedDate().getTime()));
         verify(preparedStatement).setBoolean(5, group.isActive());
     }
 }

@@ -26,8 +26,8 @@ public class GroupMapper {
         group.setId(groupDTO.getId());
         group.setTitle(groupDTO.getTitle());
         group.setDescription(groupDTO.getDescription());
-        group.setStartDate(new Date(groupDTO.getStartDate().getTime()));
-        group.setFinishedDate(new Date(groupDTO.getFinishedDate().getTime()));
+        group.setStartDate(groupDTO.getStartDate());
+        group.setFinishedDate(groupDTO.getFinishedDate());
         group.setActive(groupDTO.isActive());
         return group;
     }
