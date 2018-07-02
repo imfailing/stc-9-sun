@@ -1,10 +1,23 @@
 package ru.innopolis.stc9.sun.academy.entity;
 
+import lombok.Data;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
+
+@Data
+@Entity
+@Table(name = "\"recover\"")
 public class Hash {
+
+    @Id
     private String hash;
+
     private int userid;
+
     private int recovered;
 
     public Hash(String hash, int userid, int recovered) {

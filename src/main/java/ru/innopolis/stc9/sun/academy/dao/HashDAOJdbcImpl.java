@@ -12,7 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@Component
+@Component("hashDAOJDBC")
 public class HashDAOJdbcImpl implements HashDAO {
     static final String INSERT_HASH_SQL = "INSERT into recover (hash, userid, recovered) VALUES (?, ?, ?)";
     static final String UPDATE_HASH_SQL = "UPDATE recover set recovered=? where userid=?";

@@ -2,6 +2,7 @@ package ru.innopolis.stc9.sun.academy.service;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
@@ -26,7 +27,7 @@ public class RecoverServiceImpl implements RecoverService {
     private UserService userService;
 
     @Autowired
-    public RecoverServiceImpl(HashDAO hashDAO) {
+    public RecoverServiceImpl(@Qualifier("hashDAOJDBC") HashDAO hashDAO) {
         this.hashDAO = hashDAO;
     }
 
