@@ -1,7 +1,9 @@
 package ru.innopolis.stc9.sun.academy.dao;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -18,6 +20,8 @@ import java.sql.SQLException;
 @Repository("hashDAOHibernate")
 @Transactional
 public class HashDAOHibernateImpl implements HashDAO {
+    private static final String UPDATE_BY_HASH = "update Hash set recovered=:recovered where userid=:userid";
+
     private final SessionFactory sessionFactory;
     private static final Logger LOGGER = Logger.getLogger(HashDAOHibernateImpl.class);
 
@@ -41,7 +45,11 @@ public class HashDAOHibernateImpl implements HashDAO {
     @Override
     public boolean update(Hash hash) {
         try{
-            sessionFactory.getCurrentSession().update(hash);
+            Session session = sessionFactory.getCurrentSession();
+            Query query = session.createQuery(UPDATE_BY_HASH);
+            query.setParameter("userid",hash.getUserid());
+            query.setParameter("recovered",hash.getRecovered());
+            query.executeUpdate();
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             return false;

@@ -76,7 +76,11 @@ public class RecoverServiceImpl implements RecoverService {
 
     @Override
     public HashDTO getHashByHash(String hash) {
-        return HashMapper.toDto(hashDAO.getByHash(hash));
+        HashDTO hashDTO = HashMapper.toDto(hashDAO.getByHash(hash));
+        if(hashDTO.getRecovered()==0){
+            return hashDTO;
+        } else
+        {return null;}
     }
 
 

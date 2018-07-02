@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Data
 @Entity
-@Table(name = "\"recover\"")
+@Table(name = "\"hash\"")
 public class Hash {
 
     @Id
