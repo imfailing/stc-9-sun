@@ -14,7 +14,8 @@
         <intercept-url pattern="/signup" access="isAnonymous()"/>
         <intercept-url pattern="/recover/**" access="isAnonymous()"/>
         <intercept-url pattern="/changepass**" access="isAnonymous()"/>
-        <intercept-url pattern="/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+        <intercept-url pattern="/marks/**" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')"/>
 
         <form-login login-page="/login" username-parameter="j_username"
                     password-parameter="j_password"

@@ -133,6 +133,7 @@
                 <th>Тема</th>
                 <th>Описание</th>
                 <th></th>
+                <th></th>
             </tr>
             </thead>
             <c:set var="number" value="0"/>
@@ -143,6 +144,7 @@
                     <td><a href="/group/${group.id}/lessons/${lesson.id}">${lesson.date}</a></td>
                     <td>${lesson.title}</td>
                     <td>${lesson.description}</td>
+                    <td><a href="/group/${group.id}/lessons/${lesson.id}/rating">Оценки</a></td>
                     <td><a href="/group/${group.id}/lessons/delete/${lesson.id}">Удалить</a></td>
                 </tr>
                 </tbody>

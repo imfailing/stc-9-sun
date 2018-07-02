@@ -23,6 +23,7 @@ public class MarkDAOJdbcImpl implements MarkDAO {
     static final String INSERT_MARK_SQL = "INSERT INTO marks (lesson_id, user_id, value) VALUES (?, ?, ?) ";
     static final String SELECT_ALL_MARK_BY_USER_ID_SQL = "SELECT * FROM marks m WHERE user_id = ? ORDER BY id DESC";
     static final String DELETE_MARK_SQL = "DELETE FROM marks WHERE id = ?";
+    static final String SELECT_ALL_MARK_BY_LESSON_ID_SQL = "SELECT * FROM marks m WHERE lesson_id = ?";
 
     @Autowired
     public MarkDAOJdbcImpl(ConnectionManager connectionManager, JDBCMapper<Mark> markMapper) {
@@ -74,5 +75,23 @@ public class MarkDAOJdbcImpl implements MarkDAO {
             LOGGER.error(e.getMessage(), e);
         }
         return count > 0;
+    }
+
+    @Override
+    public Set<Mark> getAllByLessonId(Integer groupId) {
+        Set<Mark> marks = new HashSet<>();
+        try (Connection connection = connectionManager.getConnection();) {
+            try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL_MARK_BY_LESSON_ID_SQL)) {
+                statement.setInt(1, groupId);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        marks.add(markMapper.toEntity(resultSet));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return marks;
     }
 }
