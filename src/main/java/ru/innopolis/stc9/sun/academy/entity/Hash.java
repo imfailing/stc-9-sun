@@ -20,6 +20,13 @@ public class Hash {
 
     private int recovered;
 
+    public Hash() {
+    }
+
+    public Hash(String hash) {
+        this.hash = hash;
+    }
+
     public Hash(String hash, int userid, int recovered) {
         this.hash = hash;
         this.userid = userid;

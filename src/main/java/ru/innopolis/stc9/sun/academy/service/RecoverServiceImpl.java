@@ -27,7 +27,7 @@ public class RecoverServiceImpl implements RecoverService {
     private UserService userService;
 
     @Autowired
-    public RecoverServiceImpl(@Qualifier("hashDAOJDBC") HashDAO hashDAO) {
+    public RecoverServiceImpl(@Qualifier("hashDAOHibernate") HashDAO hashDAO) {
         this.hashDAO = hashDAO;
     }
 
