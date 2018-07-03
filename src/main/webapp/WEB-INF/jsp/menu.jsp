@@ -4,9 +4,12 @@
         <div class="panel-heading"><strong>Меню</strong></div>
         <div class="panel-body">
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="/">Главная</a></li>
                 <sec:authorize access="isAnonymous()">
+                    <li><a href="/">Главная</a></li>
                     <li><a href="/signup">Регистрация</a></li>
+                </sec:authorize>
+                <sec:authorize access="isAuthenticated()">
+                    <li><a href="/dashboard">Главная</a></li>
                 </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <li><a href="/users">Пользователи</a></li>
