@@ -6,22 +6,27 @@
              xsi:schemaLocation="http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans.xsd	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
 
-    <http  pattern="/static/**" security="none"/>
+    <http pattern="/static/**" security="none"/>
     <http pattern="/favicon.ico" security="none" />
 
     <http auto-config= "true" use-expressions= "true"  >
+        <intercept-url pattern="/" access="permitAll"/>
         <intercept-url pattern="/login" access="isAnonymous()"/>
         <intercept-url pattern="/signup" access="isAnonymous()"/>
         <intercept-url pattern="/recover/**" access="isAnonymous()"/>
         <intercept-url pattern="/changepass**" access="isAnonymous()"/>
+        <intercept-url pattern="/profile/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/dashboard/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
         <intercept-url pattern="/marks/**" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')"/>
 
         <form-login login-page="/login" username-parameter="j_username"
                     password-parameter="j_password"
                     login-processing-url= "/j_spring_security_check"
-                    authentication-failure-url="/login?error=1"/>
-        <logout logout-success-url="/login" />
+                    authentication-failure-url="/login?error=1"
+                    authentication-success-handler-ref="simpleUrlAuthenticationSuccessHandler"/>
+        <logout logout-success-url="/" />
+        <access-denied-handler error-page="/accessdenied"/>
         <csrf disabled="true"/>
     </http>
 
