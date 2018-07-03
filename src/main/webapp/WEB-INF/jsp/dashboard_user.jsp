@@ -34,6 +34,7 @@
             <thead>
             <tr>
                 <th>Группа</th>
+                <th>Дата</th>
                 <th>Занятие</th>
                 <th>Оценка</th>
                 <th></th>
@@ -45,6 +46,7 @@
                 <tr>
                     <td>${mark.lesson.group.title}</td>
                     <td>${mark.lesson.date}</td>
+                    <td>${mark.lesson.title}</td>
                     <td>${mark.value}</td>
                 </tr>
                 </tbody>

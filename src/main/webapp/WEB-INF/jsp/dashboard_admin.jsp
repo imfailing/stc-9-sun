@@ -19,7 +19,7 @@
                 <tbody>
                 <tr>
                     <td>${number=number+1}</td>
-                    <td>${lesson.group.title}</td>
+                    <td><a href="/group/${lesson.group.id}/lessons/${lesson.id}">${lesson.group.title}</a></td>
                     <td>${lesson.date}</td>
                     <td>${lesson.title}</td>
                     <td>${lesson.description}</td>
