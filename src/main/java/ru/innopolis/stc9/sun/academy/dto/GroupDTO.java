@@ -2,7 +2,7 @@ package ru.innopolis.stc9.sun.academy.dto;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 public class GroupDTO {
