@@ -1,5 +1,6 @@
 package ru.innopolis.stc9.sun.academy.dao;
 
+import ru.innopolis.stc9.sun.academy.dto.UserDTO;
 import ru.innopolis.stc9.sun.academy.entity.Lesson;
 
 import java.util.Set;
@@ -10,4 +11,7 @@ public interface LessonDAO {
     boolean update(Lesson lesson);
     boolean delete(Lesson lesson);
     Set<Lesson> getByGroup(Integer groupId);
+    Set<Lesson> getNearest(Integer days);
+    Set<Lesson> getNearestUser(Integer days, Integer userid);
+
 }

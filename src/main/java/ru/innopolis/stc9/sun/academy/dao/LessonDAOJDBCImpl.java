@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.innopolis.stc9.sun.academy.connection.ConnectionManager;
 import ru.innopolis.stc9.sun.academy.dao.mapper.JDBCMapper;
+import ru.innopolis.stc9.sun.academy.dto.UserDTO;
 import ru.innopolis.stc9.sun.academy.entity.Lesson;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,6 +30,11 @@ public class LessonDAOJDBCImpl implements LessonDAO {
     public LessonDAOJDBCImpl(ConnectionManager connectionManager, JDBCMapper<Lesson> lessonMapper) {
         this.connectionManager = connectionManager;
         this.lessonMapper = lessonMapper;
+    }
+
+    @Override
+    public Set<Lesson> getNearestUser(Integer days, Integer userid) {
+        return null;
     }
 
     @Override
@@ -109,5 +115,10 @@ public class LessonDAOJDBCImpl implements LessonDAO {
             LOGGER.error(e.getMessage(), e);
         }
         return lessons;
+    }
+
+    @Override
+    public Set<Lesson> getNearest(Integer days) {
+        return null;
     }
 }
