@@ -18,7 +18,7 @@ public class LessonDAOHibernateImpl implements LessonDAO {
 
     private final SessionFactory sessionFactory;
     private static final Logger LOGGER = Logger.getLogger(UserDAOHibernateImpl.class);
-    private static final String SELECT_LESSONS_BY_USERID_SQL = "SELECT \"lessons\".* FROM lessons JOIN \"groups_users\" on \"groups_users\".groups_id=\"lessons\".group_id WHERE \"groups_users\".users_id=? and \"lessons\".date>=? and \"lessons\".date<=?";
+    private static final String SELECT_LESSONS_BY_USERID_SQL = "SELECT * FROM \"lessons\" LEFT JOIN \"groups_users\" on \"lessons\".group_id=groups_id WHERE users_id=? and date>=? and date<=?";
 
     @Autowired
     public LessonDAOHibernateImpl(SessionFactory sessionFactory) {
@@ -86,7 +86,6 @@ public class LessonDAOHibernateImpl implements LessonDAO {
     @Override
     public Set<Lesson> getNearestUser(Integer days, Integer userid) {
         Set<Lesson> lessons = new HashSet<>();
-        LocalDateTime now = LocalDateTime.now();
         try {
             Query query = sessionFactory.getCurrentSession().createNativeQuery(SELECT_LESSONS_BY_USERID_SQL, Lesson.class);
             query.setParameter(1, userid);
@@ -102,7 +101,6 @@ public class LessonDAOHibernateImpl implements LessonDAO {
     @Override
     public Set<Lesson> getNearest(Integer days) {
         Set<Lesson> lessons = new HashSet<>();
-        LocalDateTime now = LocalDateTime.now();
         try {
             Query query = sessionFactory.getCurrentSession().createQuery("from Lesson where date >= :startDate and date <= :endDate");
             query.setParameter("startDate",  java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
