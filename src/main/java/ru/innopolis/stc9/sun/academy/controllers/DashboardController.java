@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class IndexController {
-    private static final Logger LOGGER = Logger.getLogger(IndexController.class);
-    private static final String TITLE = "Главная";
+public class DashboardController {
+    private static final Logger LOGGER = Logger.getLogger(DashboardController.class);
+    private static final String TITLE = "";
 
-    @RequestMapping("/")
-    public String index(ModelMap model) {
+    @RequestMapping("/dashboard")
+    public String dashboard(ModelMap model) {
         model.addAttribute("title", TITLE);
-        return "index";
+        return "dashboard";
     }
 }
