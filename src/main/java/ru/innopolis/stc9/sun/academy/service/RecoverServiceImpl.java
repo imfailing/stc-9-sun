@@ -42,7 +42,7 @@ public class RecoverServiceImpl implements RecoverService {
     public boolean sendMail(UserDTO userDTO,HashDTO hashDTO) {
       try {
           SimpleMailMessage mailMessage = new SimpleMailMessage(preConfiguredMessage);
-          mailMessage.setText("Добрый день! Ссылка на восстановление пароля - /recover?hash="+hashDTO.getHash());
+          mailMessage.setText(String.format(mailMessage.getText(),hashDTO.getHash()));
           //mailSender.send(mailMessage);
           LOGGER.info("Mail sended");
           LOGGER.info(mailMessage.getText());
