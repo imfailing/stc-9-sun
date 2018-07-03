@@ -6,7 +6,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.innopolis.stc9.sun.academy.dto.HashDTO;
 import ru.innopolis.stc9.sun.academy.dto.UserDTO;
+import ru.innopolis.stc9.sun.academy.entity.User;
 import ru.innopolis.stc9.sun.academy.service.RecoverService;
+import ru.innopolis.stc9.sun.academy.service.UserService;
 
 import javax.validation.Valid;
 
@@ -14,9 +16,11 @@ import javax.validation.Valid;
 public class RecoverController {
     private static final String TITLE = "Восстановить пароль";
     private final RecoverService recoverService;
+    private final UserService userService;
 
-    public RecoverController(RecoverService recoverService) {
+    public RecoverController(RecoverService recoverService, UserService userService) {
         this.recoverService = recoverService;
+        this.userService = userService;
     }
 
     @GetMapping("/recover")
@@ -40,26 +44,25 @@ public class RecoverController {
 
     @PostMapping("/recover")
     public String recover(@ModelAttribute("userDTO") final UserDTO userDTO,
-                         BindingResult bindingResult,
                          ModelMap model) {
-        if (!bindingResult.hasErrors()) {
+
             recoverService.makeHash(userDTO);
             return "redirect:/recover?send=1";
-        } else {
-            return "recover";
-        }
     }
 
+    @ModelAttribute("userDTO")
+    public UserDTO getUserById(Integer id) {
+        if (id != null)
+             return userService.getUserById(id);
+        else
+            return new UserDTO();
+    }
+
+
     @PostMapping("/changepass")
-    public String changepass(@ModelAttribute("userDTO") final UserDTO userDTO,
-                          BindingResult bindingResult,
-                          ModelMap model) {
-        if (!bindingResult.hasErrors()) {
+    public String changepass(@ModelAttribute("userDTO") final UserDTO userDTO, ModelMap model) {
             recoverService.setPassword(userDTO);
             return "redirect:/login";
-        } else {
-            return "recover";
-        }
     }
 
 }
