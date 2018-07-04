@@ -1,5 +1,6 @@
 package ru.innopolis.stc9.sun.academy.service;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -42,7 +43,7 @@ public class RecoverServiceImpl implements RecoverService {
     public boolean sendMail(UserDTO userDTO,HashDTO hashDTO) {
       try {
           SimpleMailMessage mailMessage = new SimpleMailMessage(preConfiguredMessage);
-          mailMessage.setText("Добрый день! Ссылка на восстановление пароля - /recover?hash="+hashDTO.getHash());
+          mailMessage.setText(String.format(mailMessage.getText(),hashDTO.getHash()));
           //mailSender.send(mailMessage);
           LOGGER.info("Mail sended");
           LOGGER.info(mailMessage.getText());
@@ -90,6 +91,7 @@ public class RecoverServiceImpl implements RecoverService {
         hashDTO.setUserid(userDTO.getId());
         hashDTO.setRecovered(1);
         updateHash(hashDTO);
+        userDTO.setPassword(DigestUtils.md5Hex(userDTO.getPassword()));
         return  userService.updateUser(userDTO);
     }
 

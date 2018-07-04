@@ -60,9 +60,18 @@ public class RecoverController {
 
 
     @PostMapping("/changepass")
-    public String changepass(@ModelAttribute("userDTO") final UserDTO userDTO, ModelMap model) {
+
+    public String changepass(@Valid @ModelAttribute("userDTO") final UserDTO userDTO,
+                             BindingResult bindingResult,
+                             ModelMap model) {
+        if (!bindingResult.hasErrors()) {
             recoverService.setPassword(userDTO);
             return "redirect:/login";
-    }
+        } else {
+            model.addAttribute("title", TITLE);
+            return "changepass";
+        }
+     }
+
 
 }
