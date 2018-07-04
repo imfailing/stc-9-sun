@@ -53,5 +53,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Set<UserDTO> getUsersOutOfGroup(Integer groupId) {
+        Set<UserDTO> users=getUsers();
+        users.removeAll(getUsersByGroup(groupId));
+        return users;
+    }
+
+    @Override
     public UserDTO getUserByEmail(String email) {return UserMapper.toDto(userDAO.getByEmail(email));}
 }

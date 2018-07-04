@@ -15,5 +15,8 @@ public interface UserService {
 
     Set<UserDTO> getUsersByGroup(Integer groupId);
 
+    Set<UserDTO> getUsersOutOfGroup(Integer groupId);
+
     UserDTO getUserByEmail(String email);
+
 }
