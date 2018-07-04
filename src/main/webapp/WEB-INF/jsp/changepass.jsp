@@ -3,7 +3,7 @@
 <%@include file="header.jsp" %>
 <form:form method="POST" action="/changepass" modelAttribute="userDTO">
     <form:hidden path="id"></form:hidden>
-    <form:input path="password"/>
+    <form:input path="password"  type="password"/>
     <form:errors path="password" cssClass="error"/>
     <p><input type="submit" value="Сменить пароль"></p>
 </form:form>

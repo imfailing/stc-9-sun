@@ -1,4 +1,5 @@
 package ru.innopolis.stc9.sun.academy.controllers;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,9 +37,9 @@ public class ProfileController {
 
     @PostMapping(params = {"passwordOld","passwordNew","passwordConfirm"})
     public String changePassword(@RequestParam("passwordOld")String passwordOld, @RequestParam("passwordNew")String passwordNew,@RequestParam("passwordConfirm")String passwordConfirm,ModelMap model){
-        if(currentUser().getPassword().equals(passwordOld)){
+        if(currentUser().getPassword().equals(DigestUtils.md5Hex(passwordOld))){
             if(passwordNew.equals(passwordConfirm)){
-                currentUser().setPassword(passwordNew);
+                currentUser().setPassword(DigestUtils.md5Hex(passwordNew));
                 userService.updateUser(currentUser());
                 model.addAttribute(PASS_RESULT_ATTRIBUTE_NAME,"Пароль изменен");
                 logger.info("password has been changed by user");
