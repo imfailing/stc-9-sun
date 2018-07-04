@@ -36,5 +36,11 @@
         <property name="text" value="${mail.text}"/>
     </bean>
 
+    <bean id="simpleUrlAuthenticationSuccessHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+        <property name="defaultTargetUrl" value="/dashboard"/>
+        <property name="targetUrlParameter" value="spring-security-redirect"/>
+    </bean>
+
+
     <mvc:annotation-driven/>
 </beans>

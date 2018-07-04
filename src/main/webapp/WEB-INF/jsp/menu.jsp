@@ -4,15 +4,20 @@
         <div class="panel-heading"><strong>Меню</strong></div>
         <div class="panel-body">
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="/">Главная</a></li>
-                <c:if test= "${not isUSer}">
-                <li><a href="/signup">Регистрация</a></li>
-                </c:if>
-                <c:if test= "${isUSer}">
-                <li><a href="/users">Пользователи</a></li>
-                <li><a href="/groups">Группы</a></li>
-                <li><a href="/marks">Оценки</a></li>
-                </c:if>
+                <sec:authorize access="isAnonymous()">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/signup">Регистрация</a></li>
+                </sec:authorize>
+                <sec:authorize access="isAuthenticated()">
+                    <li><a href="/dashboard">Главная</a></li>
+                </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <li><a href="/users">Пользователи</a></li>
+                    <li><a href="/groups">Группы</a></li>
+                </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_USER')">
+                    <li><a href="/marks">Оценки</a></li>
+                </sec:authorize>
             </ul>
         </div>
     </div>
