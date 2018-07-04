@@ -1,5 +1,6 @@
 package ru.innopolis.stc9.sun.academy.service;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,7 @@ public class UserServiceImpl implements UserService {
         List<Role> roles = new ArrayList<>();
         roles.add(new Role("ROLE_USER"));
         userDTO.setRoles(roles);
+        userDTO.setPassword(DigestUtils.md5Hex(userDTO.getPassword()));
         return userDAO.add(UserMapper.toEntity(userDTO));
     }
 
