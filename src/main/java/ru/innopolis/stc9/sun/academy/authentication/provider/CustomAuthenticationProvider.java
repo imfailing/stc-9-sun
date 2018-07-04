@@ -1,5 +1,6 @@
 package ru.innopolis.stc9.sun.academy.authentication.provider;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -32,7 +33,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
             throw new BadCredentialsException("Неверный логин или пароль.");
         }
 
-        if (!password.equals(userDTO.getPassword())) {
+        if (!DigestUtils.md5Hex(password).equals(userDTO.getPassword())) {
             LOGGER.info("Trying to enter with wrong password");
             throw new BadCredentialsException("Неверный логин или пароль.");
         }

@@ -24,7 +24,7 @@
     </div>
     <div>
         <form:label path="password">Пароль *</form:label>
-        <form:input path="password"/>
+        <form:input path="password" type="password"/>
         <form:errors path="password" cssClass="error"/>
     </div>
     <input type="submit" value="Отправить"/>
