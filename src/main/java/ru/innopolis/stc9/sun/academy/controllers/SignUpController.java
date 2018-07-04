@@ -38,6 +38,10 @@ public class SignUpController {
     public String signUp(@Valid @ModelAttribute("user") final UserDTO user,
                          BindingResult bindingResult,
                          ModelMap model) {
+        if(userService.getUserByEmail(user.getEmail())!=null)
+        {
+            return "redirect:/signup?error=1";
+        }
         if (!bindingResult.hasErrors()) {
             userService.addUser(user);
             return "redirect:/";
