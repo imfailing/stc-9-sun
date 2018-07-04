@@ -4,9 +4,13 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import ru.innopolis.stc9.sun.academy.authentication.roles.Role;
 import ru.innopolis.stc9.sun.academy.dao.UserDAO;
 import ru.innopolis.stc9.sun.academy.dto.UserDTO;
 import ru.innopolis.stc9.sun.academy.dto.mapper.UserMapper;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -26,6 +30,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addUser(UserDTO userDTO) {
+        List<Role> roles = new ArrayList<>();
+        roles.add(new Role("ROLE_USER"));
+        userDTO.setRoles(roles);
         userDTO.setPassword(DigestUtils.md5Hex(userDTO.getPassword()));
         return userDAO.add(UserMapper.toEntity(userDTO));
     }
