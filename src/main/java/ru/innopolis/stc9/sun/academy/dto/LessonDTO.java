@@ -2,16 +2,18 @@ package ru.innopolis.stc9.sun.academy.dto;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import ru.innopolis.stc9.sun.academy.dto.annotations.DateInterval;
+
 import javax.validation.constraints.*;
 import java.util.Date;
 
 @Data
+@DateInterval
 public class LessonDTO {
 
     private Integer id;
 
     @NotNull
-    @FutureOrPresent
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date date;
 
@@ -26,7 +28,9 @@ public class LessonDTO {
 
     private GroupDTO group;
 
-    public LessonDTO() { }
+    public LessonDTO() {
+
+    }
 
     public void setGroupId(Integer groupId) {
         this.groupId = groupId;
