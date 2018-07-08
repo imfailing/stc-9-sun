@@ -2,7 +2,6 @@ package ru.innopolis.stc9.sun.academy.dto.mapper;
 
 import ru.innopolis.stc9.sun.academy.dto.GroupDTO;
 import ru.innopolis.stc9.sun.academy.entity.Group;
-import java.sql.Date;
 
 public class GroupMapper {
     public GroupMapper() {

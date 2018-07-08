@@ -36,7 +36,7 @@ public class MembersController {
         model.addAttribute(MEMBERS_ATTRIBUTE_NAME, userService.getUsersByGroup(groupId));
         model.addAttribute(TITLE_ATTRIBUTE_NAME, TITLE);
         model.addAttribute("groupId", groupId);
-        model.addAttribute(USERS_ATTRIBUTE_NAME, userService.getUsers());
+        model.addAttribute(USERS_ATTRIBUTE_NAME, userService.getUsersOutOfGroup(groupId));
         LOGGER.info(String.format("Show %s view.", MEMBERS_VIEW_NAME));
         return MEMBERS_VIEW_NAME;
     }
