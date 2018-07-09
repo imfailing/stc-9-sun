@@ -1,8 +1,10 @@
 package ru.innopolis.stc9.sun.academy.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 
 public class GroupDTO {
@@ -16,9 +18,11 @@ public class GroupDTO {
     private String description;
 
     @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date startDate;
 
     @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date finishedDate;
 
     private boolean active = true;

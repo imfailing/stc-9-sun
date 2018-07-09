@@ -2,7 +2,7 @@ package ru.innopolis.stc9.sun.academy.entity;
 
 import lombok.Data;
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,10 +19,10 @@ public class Group {
     private String title;
 
     private String description;
-
+    @Temporal(TemporalType.DATE)
     @Column (name = "start_date")
     private Date startDate;
-
+    @Temporal(TemporalType.DATE)
     @Column (name = "finished_date")
     private Date finishedDate;
 
