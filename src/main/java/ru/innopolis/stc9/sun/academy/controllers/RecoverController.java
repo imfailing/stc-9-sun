@@ -60,6 +60,7 @@ public class RecoverController {
 
 
     @PostMapping("/changepass")
+
     public String changepass(@Valid @ModelAttribute("userDTO") final UserDTO userDTO,
                              BindingResult bindingResult,
                              ModelMap model) {
@@ -71,5 +72,6 @@ public class RecoverController {
             return "changepass";
         }
      }
+
 
 }

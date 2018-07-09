@@ -3,8 +3,10 @@ package ru.innopolis.stc9.sun.academy.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import ru.innopolis.stc9.sun.academy.authentication.roles.Role;
 import ru.innopolis.stc9.sun.academy.dao.LessonDAO;
 import ru.innopolis.stc9.sun.academy.dto.LessonDTO;
+import ru.innopolis.stc9.sun.academy.dto.UserDTO;
 import ru.innopolis.stc9.sun.academy.dto.mapper.LessonMapper;
 import ru.innopolis.stc9.sun.academy.entity.Lesson;
 
@@ -44,5 +46,15 @@ public class LessonServiceImpl implements LessonService{
     @Override
     public Set<LessonDTO> getLessonsByGroup(Integer groupId) {
         return lessonDAO.getByGroup(groupId).stream().map(LessonMapper::toDto).collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<LessonDTO> getLessonsNearest(Integer days) {
+        return lessonDAO.getNearest(days).stream().map(LessonMapper::toDto).collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<LessonDTO> getLessonsNearestUser(Integer days, Integer userid) {
+        return lessonDAO.getNearestUser(days, userid).stream().map(LessonMapper::toDto).collect(Collectors.toSet());
     }
 }

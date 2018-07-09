@@ -17,6 +17,8 @@
         <intercept-url pattern="/changepass**" access="isAnonymous()"/>
         <intercept-url pattern="/profile/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
         <intercept-url pattern="/dashboard/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/dashboard_admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/dashboard_user/**" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/marks/**" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')"/>
 
